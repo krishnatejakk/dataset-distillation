@@ -1,0 +1,948 @@
+2023-03-28 11:49:53 [INFO ]  ======================================== 2023-03-28 11:49:53 ========================================
+2023-03-28 11:49:53 [INFO ]  Base directory is ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)
+2023-03-28 11:49:53 [INFO ]  Options: 
+2023-03-28 11:49:53 [INFO ]  	arch: AlexCifarNet
+2023-03-28 11:49:53 [INFO ]  	attack_class: 0
+2023-03-28 11:49:53 [INFO ]  	base_seed: 1
+2023-03-28 11:49:53 [INFO ]  	batch_size: 1024
+2023-03-28 11:49:53 [INFO ]  	checkpoint_interval: 10
+2023-03-28 11:49:53 [INFO ]  	dataset: Cifar100
+2023-03-28 11:49:53 [INFO ]  	dataset_labels: !!python/tuple
+2023-03-28 11:49:53 [INFO ]  	- apple
+2023-03-28 11:49:53 [INFO ]  	- aquarium_fish
+2023-03-28 11:49:53 [INFO ]  	- baby
+2023-03-28 11:49:53 [INFO ]  	- bear
+2023-03-28 11:49:53 [INFO ]  	- beaver
+2023-03-28 11:49:53 [INFO ]  	- bed
+2023-03-28 11:49:53 [INFO ]  	- bee
+2023-03-28 11:49:53 [INFO ]  	- beetle
+2023-03-28 11:49:53 [INFO ]  	- bicycle
+2023-03-28 11:49:53 [INFO ]  	- bottle
+2023-03-28 11:49:53 [INFO ]  	- bowl
+2023-03-28 11:49:53 [INFO ]  	- boy
+2023-03-28 11:49:53 [INFO ]  	- bridge
+2023-03-28 11:49:53 [INFO ]  	- bus
+2023-03-28 11:49:53 [INFO ]  	- butterfly
+2023-03-28 11:49:53 [INFO ]  	- camel
+2023-03-28 11:49:53 [INFO ]  	- can
+2023-03-28 11:49:53 [INFO ]  	- castle
+2023-03-28 11:49:53 [INFO ]  	- caterpillar
+2023-03-28 11:49:53 [INFO ]  	- cattle
+2023-03-28 11:49:53 [INFO ]  	- chair
+2023-03-28 11:49:53 [INFO ]  	- chimpanzee
+2023-03-28 11:49:53 [INFO ]  	- clock
+2023-03-28 11:49:53 [INFO ]  	- cloud
+2023-03-28 11:49:53 [INFO ]  	- cockroach
+2023-03-28 11:49:53 [INFO ]  	- couch
+2023-03-28 11:49:53 [INFO ]  	- crab
+2023-03-28 11:49:53 [INFO ]  	- crocodile
+2023-03-28 11:49:53 [INFO ]  	- cup
+2023-03-28 11:49:53 [INFO ]  	- dinosaur
+2023-03-28 11:49:53 [INFO ]  	- dolphin
+2023-03-28 11:49:53 [INFO ]  	- elephant
+2023-03-28 11:49:53 [INFO ]  	- flatfish
+2023-03-28 11:49:53 [INFO ]  	- forest
+2023-03-28 11:49:53 [INFO ]  	- fox
+2023-03-28 11:49:53 [INFO ]  	- girl
+2023-03-28 11:49:53 [INFO ]  	- hamster
+2023-03-28 11:49:53 [INFO ]  	- house
+2023-03-28 11:49:53 [INFO ]  	- kangaroo
+2023-03-28 11:49:53 [INFO ]  	- computer_keyboard
+2023-03-28 11:49:53 [INFO ]  	- lamp
+2023-03-28 11:49:53 [INFO ]  	- lawn_mower
+2023-03-28 11:49:53 [INFO ]  	- leopard
+2023-03-28 11:49:53 [INFO ]  	- lion
+2023-03-28 11:49:53 [INFO ]  	- lizard
+2023-03-28 11:49:53 [INFO ]  	- lobster
+2023-03-28 11:49:53 [INFO ]  	- man
+2023-03-28 11:49:53 [INFO ]  	- maple_tree
+2023-03-28 11:49:53 [INFO ]  	- motorcycle
+2023-03-28 11:49:53 [INFO ]  	- mountain
+2023-03-28 11:49:53 [INFO ]  	- mouse
+2023-03-28 11:49:53 [INFO ]  	- mushroom
+2023-03-28 11:49:53 [INFO ]  	- oak_tree
+2023-03-28 11:49:53 [INFO ]  	- orange
+2023-03-28 11:49:53 [INFO ]  	- orchid
+2023-03-28 11:49:53 [INFO ]  	- otter
+2023-03-28 11:49:53 [INFO ]  	- palm_tree
+2023-03-28 11:49:53 [INFO ]  	- pear
+2023-03-28 11:49:53 [INFO ]  	- pickup_truck
+2023-03-28 11:49:53 [INFO ]  	- pine_tree
+2023-03-28 11:49:53 [INFO ]  	- plain
+2023-03-28 11:49:53 [INFO ]  	- plate
+2023-03-28 11:49:53 [INFO ]  	- poppy
+2023-03-28 11:49:53 [INFO ]  	- porcupine
+2023-03-28 11:49:53 [INFO ]  	- possum
+2023-03-28 11:49:53 [INFO ]  	- rabbit
+2023-03-28 11:49:53 [INFO ]  	- raccoon
+2023-03-28 11:49:53 [INFO ]  	- ray
+2023-03-28 11:49:53 [INFO ]  	- road
+2023-03-28 11:49:53 [INFO ]  	- rocket
+2023-03-28 11:49:53 [INFO ]  	- rose
+2023-03-28 11:49:53 [INFO ]  	- sea
+2023-03-28 11:49:53 [INFO ]  	- seal
+2023-03-28 11:49:53 [INFO ]  	- shark
+2023-03-28 11:49:53 [INFO ]  	- shrew
+2023-03-28 11:49:53 [INFO ]  	- skunk
+2023-03-28 11:49:53 [INFO ]  	- skyscraper
+2023-03-28 11:49:53 [INFO ]  	- snail
+2023-03-28 11:49:53 [INFO ]  	- snake
+2023-03-28 11:49:53 [INFO ]  	- spider
+2023-03-28 11:49:53 [INFO ]  	- squirrel
+2023-03-28 11:49:53 [INFO ]  	- streetcar
+2023-03-28 11:49:53 [INFO ]  	- sunflower
+2023-03-28 11:49:53 [INFO ]  	- sweet_pepper
+2023-03-28 11:49:53 [INFO ]  	- table
+2023-03-28 11:49:53 [INFO ]  	- tank
+2023-03-28 11:49:53 [INFO ]  	- telephone
+2023-03-28 11:49:53 [INFO ]  	- television
+2023-03-28 11:49:53 [INFO ]  	- tiger
+2023-03-28 11:49:53 [INFO ]  	- tractor
+2023-03-28 11:49:53 [INFO ]  	- train
+2023-03-28 11:49:53 [INFO ]  	- trout
+2023-03-28 11:49:53 [INFO ]  	- tulip
+2023-03-28 11:49:53 [INFO ]  	- turtle
+2023-03-28 11:49:53 [INFO ]  	- wardrobe
+2023-03-28 11:49:53 [INFO ]  	- whale
+2023-03-28 11:49:53 [INFO ]  	- willow_tree
+2023-03-28 11:49:53 [INFO ]  	- wolf
+2023-03-28 11:49:53 [INFO ]  	- woman
+2023-03-28 11:49:53 [INFO ]  	- worm
+2023-03-28 11:49:53 [INFO ]  	dataset_normalization: !!python/tuple
+2023-03-28 11:49:53 [INFO ]  	- !!python/tuple
+2023-03-28 11:49:53 [INFO ]  	    - 0.5071
+2023-03-28 11:49:53 [INFO ]  	    - 0.4865
+2023-03-28 11:49:53 [INFO ]  	    - 0.4409
+2023-03-28 11:49:53 [INFO ]  	- !!python/tuple
+2023-03-28 11:49:53 [INFO ]  	    - 0.2673
+2023-03-28 11:49:53 [INFO ]  	    - 0.2564
+2023-03-28 11:49:53 [INFO ]  	    - 0.2762
+2023-03-28 11:49:53 [INFO ]  	dataset_root: ./data/cifar100
+2023-03-28 11:49:53 [INFO ]  	decay_epochs: 40
+2023-03-28 11:49:53 [INFO ]  	decay_factor: 0.5
+2023-03-28 11:49:53 [INFO ]  	device_id: 0
+2023-03-28 11:49:53 [INFO ]  	distill_epochs: 3
+2023-03-28 11:49:53 [INFO ]  	distill_lr: 0.001
+2023-03-28 11:49:53 [INFO ]  	distill_steps: 10
+2023-03-28 11:49:53 [INFO ]  	distilled_images_per_class_per_step: 1
+2023-03-28 11:49:53 [INFO ]  	distributed: false
+2023-03-28 11:49:53 [INFO ]  	dropout: false
+2023-03-28 11:49:53 [INFO ]  	epochs: 400
+2023-03-28 11:49:53 [INFO ]  	expr_name_format: null
+2023-03-28 11:49:53 [INFO ]  	image_dpi: 80
+2023-03-28 11:49:53 [INFO ]  	init: xavier
+2023-03-28 11:49:53 [INFO ]  	init_param: 1.0
+2023-03-28 11:49:53 [INFO ]  	input_size: 32
+2023-03-28 11:49:53 [INFO ]  	log_file: ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/output.log
+2023-03-28 11:49:53 [INFO ]  	log_interval: 100
+2023-03-28 11:49:53 [INFO ]  	log_level: INFO
+2023-03-28 11:49:53 [INFO ]  	lr: 0.01
+2023-03-28 11:49:53 [INFO ]  	mode: distill_basic
+2023-03-28 11:49:53 [INFO ]  	model_dir: ./models/
+2023-03-28 11:49:53 [INFO ]  	model_subdir_format: null
+2023-03-28 11:49:53 [INFO ]  	n_nets: 1
+2023-03-28 11:49:53 [INFO ]  	nc: 3
+2023-03-28 11:49:53 [INFO ]  	no_log: false
+2023-03-28 11:49:53 [INFO ]  	num_classes: 100
+2023-03-28 11:49:53 [INFO ]  	num_workers: 8
+2023-03-28 11:49:53 [INFO ]  	phase: train
+2023-03-28 11:49:53 [INFO ]  	results_dir: ./results/
+2023-03-28 11:49:53 [INFO ]  	sample_n_nets: 1
+2023-03-28 11:49:53 [INFO ]  	source_dataset: null
+2023-03-28 11:49:53 [INFO ]  	start_time: '2023-03-28 11:49:53'
+2023-03-28 11:49:53 [INFO ]  	target_class: 1
+2023-03-28 11:49:53 [INFO ]  	test_batch_size: 1024
+2023-03-28 11:49:53 [INFO ]  	test_distill_epochs: null
+2023-03-28 11:49:53 [INFO ]  	test_distilled_images: loaded
+2023-03-28 11:49:53 [INFO ]  	test_distilled_lrs:
+2023-03-28 11:49:53 [INFO ]  	- loaded
+2023-03-28 11:49:53 [INFO ]  	test_n_nets: 1
+2023-03-28 11:49:53 [INFO ]  	test_n_runs: 1
+2023-03-28 11:49:53 [INFO ]  	test_name_format: null
+2023-03-28 11:49:53 [INFO ]  	test_nets_type: unknown_init
+2023-03-28 11:49:53 [INFO ]  	test_niter: 1
+2023-03-28 11:49:53 [INFO ]  	test_optimize_n_nets: 20
+2023-03-28 11:49:53 [INFO ]  	test_optimize_n_runs: null
+2023-03-28 11:49:53 [INFO ]  	train_nets_type: unknown_init
+2023-03-28 11:49:53 [INFO ]  	world_rank: 0
+2023-03-28 11:49:53 [INFO ]  	world_size: 1
+2023-03-28 11:49:53 [INFO ]  	
+2023-03-28 11:49:53 [WARNING]  ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/opt.yaml already exists, moved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/old_opts/opt_2023_03_28__11_21_25.yaml
+2023-03-28 11:49:56 [INFO ]  train dataset size:	50000
+2023-03-28 11:49:56 [INFO ]  test dataset size: 	10000
+2023-03-28 11:49:56 [INFO ]  datasets built!
+2023-03-28 11:49:56 [INFO ]  mode: distill_basic, phase: train
+2023-03-28 11:49:56 [INFO ]  Build 1 AlexCifarNet network(s) with [xavier(1.0)] init
+2023-03-28 11:50:00 [INFO ]  Build 1 AlexCifarNet network(s) with [xavier(1.0)] init
+2023-03-28 11:50:00 [INFO ]  Train 10 steps iterated for 3 epochs
+2023-03-28 11:50:04 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0000/results.pth
+2023-03-28 11:50:04 [INFO ]  
+2023-03-28 11:50:04 [INFO ]  Begin of epoch 0 :
+2023-03-28 11:50:15 [INFO ]  Begin of epoch 0  (1 unknown_init nets) test results: 
+2023-03-28 11:50:15 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 11:50:15 [INFO ]  	            before steps           0.9766 ±  nan%            4.6331 ±  nan
+2023-03-28 11:50:15 [INFO ]  	     step 30 (lr=0.0010)           0.9766 ±  nan%            4.6228 ±  nan
+2023-03-28 11:50:15 [INFO ]  
+2023-03-28 11:50:15 [INFO ]  Epoch:    0 [      0/  50000 ( 0%)]	Loss: 4.6188	Data Time: 3.91s	Train Time: 0.40s
+2023-03-28 11:50:26 [INFO ]  Epoch:    1 [      0/  50000 ( 0%)]	Loss: 4.6122	Data Time: 0.17s	Train Time: 0.29s
+2023-03-28 11:50:38 [INFO ]  Epoch:    2 [      0/  50000 ( 0%)]	Loss: 4.6105	Data Time: 0.57s	Train Time: 0.38s
+2023-03-28 11:50:49 [INFO ]  Epoch:    3 [      0/  50000 ( 0%)]	Loss: 4.6134	Data Time: 0.21s	Train Time: 0.28s
+2023-03-28 11:51:00 [INFO ]  Epoch:    4 [      0/  50000 ( 0%)]	Loss: 4.6002	Data Time: 0.46s	Train Time: 0.30s
+2023-03-28 11:51:12 [INFO ]  Epoch:    5 [      0/  50000 ( 0%)]	Loss: 4.5641	Data Time: 0.40s	Train Time: 0.26s
+2023-03-28 11:51:23 [INFO ]  Epoch:    6 [      0/  50000 ( 0%)]	Loss: 4.3162	Data Time: 0.39s	Train Time: 0.37s
+2023-03-28 11:51:33 [INFO ]  Epoch:    7 [      0/  50000 ( 0%)]	Loss: 4.2896	Data Time: 0.29s	Train Time: 0.29s
+2023-03-28 11:51:44 [INFO ]  Epoch:    8 [      0/  50000 ( 0%)]	Loss: 4.2573	Data Time: 0.50s	Train Time: 0.27s
+2023-03-28 11:51:55 [INFO ]  Epoch:    9 [      0/  50000 ( 0%)]	Loss: 4.1706	Data Time: 0.45s	Train Time: 0.36s
+2023-03-28 11:52:06 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0010/results.pth
+2023-03-28 11:52:06 [INFO ]  
+2023-03-28 11:52:06 [INFO ]  Begin of epoch 10 :
+2023-03-28 11:52:07 [INFO ]  Begin of epoch 10  (1 unknown_init nets) test results: 
+2023-03-28 11:52:07 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 11:52:07 [INFO ]  	            before steps           1.2695 ±  nan%            4.6409 ±  nan
+2023-03-28 11:52:07 [INFO ]  	     step 30 (lr=0.0150)           8.3008 ±  nan%            4.2329 ±  nan
+2023-03-28 11:52:07 [INFO ]  
+2023-03-28 11:52:07 [INFO ]  Epoch:   10 [      0/  50000 ( 0%)]	Loss: 4.2711	Data Time: 0.66s	Train Time: 0.20s
+2023-03-28 11:52:18 [INFO ]  Epoch:   11 [      0/  50000 ( 0%)]	Loss: 4.2713	Data Time: 0.31s	Train Time: 0.39s
+2023-03-28 11:52:29 [INFO ]  Epoch:   12 [      0/  50000 ( 0%)]	Loss: 4.1955	Data Time: 0.20s	Train Time: 0.36s
+2023-03-28 11:52:41 [INFO ]  Epoch:   13 [      0/  50000 ( 0%)]	Loss: 4.2025	Data Time: 0.39s	Train Time: 0.26s
+2023-03-28 11:52:52 [INFO ]  Epoch:   14 [      0/  50000 ( 0%)]	Loss: 4.2209	Data Time: 0.28s	Train Time: 0.25s
+2023-03-28 11:53:03 [INFO ]  Epoch:   15 [      0/  50000 ( 0%)]	Loss: 4.2755	Data Time: 0.31s	Train Time: 0.24s
+2023-03-28 11:53:14 [INFO ]  Epoch:   16 [      0/  50000 ( 0%)]	Loss: 4.2821	Data Time: 0.39s	Train Time: 0.30s
+2023-03-28 11:53:26 [INFO ]  Epoch:   17 [      0/  50000 ( 0%)]	Loss: 4.2910	Data Time: 0.56s	Train Time: 0.18s
+2023-03-28 11:53:36 [INFO ]  Epoch:   18 [      0/  50000 ( 0%)]	Loss: 4.2128	Data Time: 0.55s	Train Time: 0.23s
+2023-03-28 11:53:47 [INFO ]  Epoch:   19 [      0/  50000 ( 0%)]	Loss: 4.2078	Data Time: 0.21s	Train Time: 0.35s
+2023-03-28 11:53:58 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0020/results.pth
+2023-03-28 11:53:58 [INFO ]  
+2023-03-28 11:53:58 [INFO ]  Begin of epoch 20 :
+2023-03-28 11:54:00 [INFO ]  Begin of epoch 20  (1 unknown_init nets) test results: 
+2023-03-28 11:54:00 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 11:54:00 [INFO ]  	            before steps           1.2695 ±  nan%            4.6284 ±  nan
+2023-03-28 11:54:00 [INFO ]  	     step 30 (lr=0.0175)           5.8594 ±  nan%            4.1553 ±  nan
+2023-03-28 11:54:00 [INFO ]  
+2023-03-28 11:54:00 [INFO ]  Epoch:   20 [      0/  50000 ( 0%)]	Loss: 4.2580	Data Time: 0.20s	Train Time: 0.20s
+2023-03-28 11:54:11 [INFO ]  Epoch:   21 [      0/  50000 ( 0%)]	Loss: 4.2047	Data Time: 0.41s	Train Time: 0.36s
+2023-03-28 11:54:22 [INFO ]  Epoch:   22 [      0/  50000 ( 0%)]	Loss: 4.3431	Data Time: 0.54s	Train Time: 0.31s
+2023-03-28 11:54:33 [INFO ]  Epoch:   23 [      0/  50000 ( 0%)]	Loss: 4.2259	Data Time: 0.25s	Train Time: 0.23s
+2023-03-28 11:54:45 [INFO ]  Epoch:   24 [      0/  50000 ( 0%)]	Loss: 4.2609	Data Time: 0.21s	Train Time: 0.25s
+2023-03-28 11:54:56 [INFO ]  Epoch:   25 [      0/  50000 ( 0%)]	Loss: 4.3391	Data Time: 0.68s	Train Time: 0.23s
+2023-03-28 11:55:08 [INFO ]  Epoch:   26 [      0/  50000 ( 0%)]	Loss: 4.2006	Data Time: 0.59s	Train Time: 0.30s
+2023-03-28 11:55:18 [INFO ]  Epoch:   27 [      0/  50000 ( 0%)]	Loss: 4.2372	Data Time: 0.37s	Train Time: 0.33s
+2023-03-28 11:55:29 [INFO ]  Epoch:   28 [      0/  50000 ( 0%)]	Loss: 4.3091	Data Time: 0.23s	Train Time: 0.33s
+2023-03-28 11:55:40 [INFO ]  Epoch:   29 [      0/  50000 ( 0%)]	Loss: 4.2305	Data Time: 0.27s	Train Time: 0.31s
+2023-03-28 11:55:51 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0030/results.pth
+2023-03-28 11:55:51 [INFO ]  
+2023-03-28 11:55:51 [INFO ]  Begin of epoch 30 :
+2023-03-28 11:55:52 [INFO ]  Begin of epoch 30  (1 unknown_init nets) test results: 
+2023-03-28 11:55:52 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 11:55:52 [INFO ]  	            before steps           0.9766 ±  nan%            4.6369 ±  nan
+2023-03-28 11:55:52 [INFO ]  	     step 30 (lr=0.0174)           6.5430 ±  nan%            4.2130 ±  nan
+2023-03-28 11:55:52 [INFO ]  
+2023-03-28 11:55:53 [INFO ]  Epoch:   30 [      0/  50000 ( 0%)]	Loss: 4.2035	Data Time: 0.17s	Train Time: 0.20s
+2023-03-28 11:56:04 [INFO ]  Epoch:   31 [      0/  50000 ( 0%)]	Loss: 4.2333	Data Time: 0.29s	Train Time: 0.24s
+2023-03-28 11:56:15 [INFO ]  Epoch:   32 [      0/  50000 ( 0%)]	Loss: 4.2209	Data Time: 0.22s	Train Time: 0.32s
+2023-03-28 11:56:26 [INFO ]  Epoch:   33 [      0/  50000 ( 0%)]	Loss: 4.2258	Data Time: 0.29s	Train Time: 0.34s
+2023-03-28 11:56:37 [INFO ]  Epoch:   34 [      0/  50000 ( 0%)]	Loss: 4.2620	Data Time: 0.31s	Train Time: 0.29s
+2023-03-28 11:56:49 [INFO ]  Epoch:   35 [      0/  50000 ( 0%)]	Loss: 4.1926	Data Time: 0.52s	Train Time: 0.29s
+2023-03-28 11:57:00 [INFO ]  Epoch:   36 [      0/  50000 ( 0%)]	Loss: 4.1518	Data Time: 0.76s	Train Time: 0.36s
+2023-03-28 11:57:11 [INFO ]  Epoch:   37 [      0/  50000 ( 0%)]	Loss: 4.1650	Data Time: 0.20s	Train Time: 0.41s
+2023-03-28 11:57:22 [INFO ]  Epoch:   38 [      0/  50000 ( 0%)]	Loss: 4.2763	Data Time: 0.71s	Train Time: 0.23s
+2023-03-28 11:57:33 [INFO ]  Epoch:   39 [      0/  50000 ( 0%)]	Loss: 4.2150	Data Time: 0.70s	Train Time: 0.26s
+2023-03-28 11:57:44 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0040/results.pth
+2023-03-28 11:57:44 [INFO ]  
+2023-03-28 11:57:44 [INFO ]  Begin of epoch 40 :
+2023-03-28 11:57:45 [INFO ]  Begin of epoch 40  (1 unknown_init nets) test results: 
+2023-03-28 11:57:45 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 11:57:45 [INFO ]  	            before steps           1.0742 ±  nan%            4.6223 ±  nan
+2023-03-28 11:57:45 [INFO ]  	     step 30 (lr=0.0205)           8.1055 ±  nan%            4.1796 ±  nan
+2023-03-28 11:57:45 [INFO ]  
+2023-03-28 11:57:46 [INFO ]  Epoch:   40 [      0/  50000 ( 0%)]	Loss: 4.1913	Data Time: 0.46s	Train Time: 0.20s
+2023-03-28 11:57:57 [INFO ]  Epoch:   41 [      0/  50000 ( 0%)]	Loss: 4.1405	Data Time: 0.54s	Train Time: 0.40s
+2023-03-28 11:58:08 [INFO ]  Epoch:   42 [      0/  50000 ( 0%)]	Loss: 4.1521	Data Time: 0.75s	Train Time: 0.38s
+2023-03-28 11:58:19 [INFO ]  Epoch:   43 [      0/  50000 ( 0%)]	Loss: 4.1507	Data Time: 0.61s	Train Time: 0.27s
+2023-03-28 11:58:30 [INFO ]  Epoch:   44 [      0/  50000 ( 0%)]	Loss: 4.1880	Data Time: 0.28s	Train Time: 0.36s
+2023-03-28 11:58:42 [INFO ]  Epoch:   45 [      0/  50000 ( 0%)]	Loss: 4.2215	Data Time: 0.26s	Train Time: 0.35s
+2023-03-28 11:58:53 [INFO ]  Epoch:   46 [      0/  50000 ( 0%)]	Loss: 4.2306	Data Time: 0.20s	Train Time: 0.40s
+2023-03-28 11:59:04 [INFO ]  Epoch:   47 [      0/  50000 ( 0%)]	Loss: 4.2145	Data Time: 0.20s	Train Time: 0.30s
+2023-03-28 11:59:15 [INFO ]  Epoch:   48 [      0/  50000 ( 0%)]	Loss: 4.2054	Data Time: 0.73s	Train Time: 0.19s
+2023-03-28 11:59:26 [INFO ]  Epoch:   49 [      0/  50000 ( 0%)]	Loss: 4.2141	Data Time: 0.21s	Train Time: 0.36s
+2023-03-28 11:59:37 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0050/results.pth
+2023-03-28 11:59:37 [INFO ]  
+2023-03-28 11:59:37 [INFO ]  Begin of epoch 50 :
+2023-03-28 11:59:38 [INFO ]  Begin of epoch 50  (1 unknown_init nets) test results: 
+2023-03-28 11:59:38 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 11:59:38 [INFO ]  	            before steps           0.9766 ±  nan%            4.6431 ±  nan
+2023-03-28 11:59:38 [INFO ]  	     step 30 (lr=0.0174)           7.6172 ±  nan%            4.2036 ±  nan
+2023-03-28 11:59:38 [INFO ]  
+2023-03-28 11:59:38 [INFO ]  Epoch:   50 [      0/  50000 ( 0%)]	Loss: 4.2173	Data Time: 0.20s	Train Time: 0.19s
+2023-03-28 11:59:49 [INFO ]  Epoch:   51 [      0/  50000 ( 0%)]	Loss: 4.2144	Data Time: 0.27s	Train Time: 0.35s
+2023-03-28 12:00:01 [INFO ]  Epoch:   52 [      0/  50000 ( 0%)]	Loss: 4.1450	Data Time: 0.25s	Train Time: 0.37s
+2023-03-28 12:00:12 [INFO ]  Epoch:   53 [      0/  50000 ( 0%)]	Loss: 4.2547	Data Time: 0.47s	Train Time: 0.32s
+2023-03-28 12:00:24 [INFO ]  Epoch:   54 [      0/  50000 ( 0%)]	Loss: 4.2292	Data Time: 0.70s	Train Time: 0.33s
+2023-03-28 12:00:35 [INFO ]  Epoch:   55 [      0/  50000 ( 0%)]	Loss: 4.1933	Data Time: 0.59s	Train Time: 0.30s
+2023-03-28 12:00:47 [INFO ]  Epoch:   56 [      0/  50000 ( 0%)]	Loss: 4.1696	Data Time: 0.47s	Train Time: 0.33s
+2023-03-28 12:00:57 [INFO ]  Epoch:   57 [      0/  50000 ( 0%)]	Loss: 4.2533	Data Time: 0.24s	Train Time: 0.35s
+2023-03-28 12:01:08 [INFO ]  Epoch:   58 [      0/  50000 ( 0%)]	Loss: 4.1813	Data Time: 0.30s	Train Time: 0.33s
+2023-03-28 12:01:19 [INFO ]  Epoch:   59 [      0/  50000 ( 0%)]	Loss: 4.1511	Data Time: 0.37s	Train Time: 0.37s
+2023-03-28 12:01:30 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0060/results.pth
+2023-03-28 12:01:30 [INFO ]  
+2023-03-28 12:01:30 [INFO ]  Begin of epoch 60 :
+2023-03-28 12:01:31 [INFO ]  Begin of epoch 60  (1 unknown_init nets) test results: 
+2023-03-28 12:01:31 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:01:31 [INFO ]  	            before steps           1.1719 ±  nan%            4.6178 ±  nan
+2023-03-28 12:01:31 [INFO ]  	     step 30 (lr=0.0193)           8.1055 ±  nan%            4.1503 ±  nan
+2023-03-28 12:01:31 [INFO ]  
+2023-03-28 12:01:32 [INFO ]  Epoch:   60 [      0/  50000 ( 0%)]	Loss: 4.2286	Data Time: 0.65s	Train Time: 0.20s
+2023-03-28 12:01:42 [INFO ]  Epoch:   61 [      0/  50000 ( 0%)]	Loss: 4.1213	Data Time: 0.33s	Train Time: 0.37s
+2023-03-28 12:01:54 [INFO ]  Epoch:   62 [      0/  50000 ( 0%)]	Loss: 4.1896	Data Time: 0.36s	Train Time: 0.33s
+2023-03-28 12:02:06 [INFO ]  Epoch:   63 [      0/  50000 ( 0%)]	Loss: 4.2337	Data Time: 0.77s	Train Time: 0.39s
+2023-03-28 12:02:18 [INFO ]  Epoch:   64 [      0/  50000 ( 0%)]	Loss: 4.1116	Data Time: 0.70s	Train Time: 0.28s
+2023-03-28 12:02:29 [INFO ]  Epoch:   65 [      0/  50000 ( 0%)]	Loss: 4.1529	Data Time: 0.58s	Train Time: 0.43s
+2023-03-28 12:02:40 [INFO ]  Epoch:   66 [      0/  50000 ( 0%)]	Loss: 4.2419	Data Time: 0.26s	Train Time: 0.27s
+2023-03-28 12:02:51 [INFO ]  Epoch:   67 [      0/  50000 ( 0%)]	Loss: 4.1402	Data Time: 0.30s	Train Time: 0.29s
+2023-03-28 12:03:02 [INFO ]  Epoch:   68 [      0/  50000 ( 0%)]	Loss: 4.1633	Data Time: 0.31s	Train Time: 0.49s
+2023-03-28 12:03:13 [INFO ]  Epoch:   69 [      0/  50000 ( 0%)]	Loss: 4.1411	Data Time: 0.25s	Train Time: 0.30s
+2023-03-28 12:03:24 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0070/results.pth
+2023-03-28 12:03:24 [INFO ]  
+2023-03-28 12:03:24 [INFO ]  Begin of epoch 70 :
+2023-03-28 12:03:25 [INFO ]  Begin of epoch 70  (1 unknown_init nets) test results: 
+2023-03-28 12:03:25 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:03:25 [INFO ]  	            before steps           1.1719 ±  nan%            4.6248 ±  nan
+2023-03-28 12:03:25 [INFO ]  	     step 30 (lr=0.0186)           6.9336 ±  nan%            4.1561 ±  nan
+2023-03-28 12:03:25 [INFO ]  
+2023-03-28 12:03:26 [INFO ]  Epoch:   70 [      0/  50000 ( 0%)]	Loss: 4.1456	Data Time: 0.21s	Train Time: 0.19s
+2023-03-28 12:03:36 [INFO ]  Epoch:   71 [      0/  50000 ( 0%)]	Loss: 4.1127	Data Time: 0.43s	Train Time: 0.38s
+2023-03-28 12:03:48 [INFO ]  Epoch:   72 [      0/  50000 ( 0%)]	Loss: 4.1242	Data Time: 0.69s	Train Time: 0.38s
+2023-03-28 12:03:59 [INFO ]  Epoch:   73 [      0/  50000 ( 0%)]	Loss: 4.1421	Data Time: 0.38s	Train Time: 0.37s
+2023-03-28 12:04:10 [INFO ]  Epoch:   74 [      0/  50000 ( 0%)]	Loss: 4.1738	Data Time: 0.37s	Train Time: 0.27s
+2023-03-28 12:04:21 [INFO ]  Epoch:   75 [      0/  50000 ( 0%)]	Loss: 4.1176	Data Time: 0.30s	Train Time: 0.26s
+2023-03-28 12:04:32 [INFO ]  Epoch:   76 [      0/  50000 ( 0%)]	Loss: 4.1369	Data Time: 0.27s	Train Time: 0.24s
+2023-03-28 12:04:44 [INFO ]  Epoch:   77 [      0/  50000 ( 0%)]	Loss: 4.1953	Data Time: 0.59s	Train Time: 0.32s
+2023-03-28 12:04:55 [INFO ]  Epoch:   78 [      0/  50000 ( 0%)]	Loss: 4.1097	Data Time: 0.30s	Train Time: 0.26s
+2023-03-28 12:05:06 [INFO ]  Epoch:   79 [      0/  50000 ( 0%)]	Loss: 4.0937	Data Time: 0.29s	Train Time: 0.33s
+2023-03-28 12:05:17 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0080/results.pth
+2023-03-28 12:05:17 [INFO ]  
+2023-03-28 12:05:17 [INFO ]  Begin of epoch 80 :
+2023-03-28 12:05:18 [INFO ]  Begin of epoch 80  (1 unknown_init nets) test results: 
+2023-03-28 12:05:18 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:05:18 [INFO ]  	            before steps           0.6836 ±  nan%            4.6294 ±  nan
+2023-03-28 12:05:18 [INFO ]  	     step 30 (lr=0.0184)           6.3477 ±  nan%            4.2646 ±  nan
+2023-03-28 12:05:18 [INFO ]  
+2023-03-28 12:05:18 [INFO ]  Epoch:   80 [      0/  50000 ( 0%)]	Loss: 4.2771	Data Time: 0.37s	Train Time: 0.21s
+2023-03-28 12:05:29 [INFO ]  Epoch:   81 [      0/  50000 ( 0%)]	Loss: 4.1539	Data Time: 0.23s	Train Time: 0.24s
+2023-03-28 12:05:40 [INFO ]  Epoch:   82 [      0/  50000 ( 0%)]	Loss: 4.1961	Data Time: 0.22s	Train Time: 0.35s
+2023-03-28 12:05:51 [INFO ]  Epoch:   83 [      0/  50000 ( 0%)]	Loss: 4.2410	Data Time: 0.35s	Train Time: 0.22s
+2023-03-28 12:06:03 [INFO ]  Epoch:   84 [      0/  50000 ( 0%)]	Loss: 4.0652	Data Time: 0.34s	Train Time: 0.37s
+2023-03-28 12:06:14 [INFO ]  Epoch:   85 [      0/  50000 ( 0%)]	Loss: 4.1214	Data Time: 0.25s	Train Time: 0.36s
+2023-03-28 12:06:26 [INFO ]  Epoch:   86 [      0/  50000 ( 0%)]	Loss: 4.1913	Data Time: 0.70s	Train Time: 0.29s
+2023-03-28 12:06:37 [INFO ]  Epoch:   87 [      0/  50000 ( 0%)]	Loss: 4.2823	Data Time: 0.24s	Train Time: 0.30s
+2023-03-28 12:06:47 [INFO ]  Epoch:   88 [      0/  50000 ( 0%)]	Loss: 4.1427	Data Time: 0.23s	Train Time: 0.25s
+2023-03-28 12:06:58 [INFO ]  Epoch:   89 [      0/  50000 ( 0%)]	Loss: 4.2966	Data Time: 0.54s	Train Time: 0.21s
+2023-03-28 12:07:10 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0090/results.pth
+2023-03-28 12:07:10 [INFO ]  
+2023-03-28 12:07:10 [INFO ]  Begin of epoch 90 :
+2023-03-28 12:07:10 [INFO ]  Begin of epoch 90  (1 unknown_init nets) test results: 
+2023-03-28 12:07:10 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:07:10 [INFO ]  	            before steps           1.3672 ±  nan%            4.6327 ±  nan
+2023-03-28 12:07:10 [INFO ]  	     step 30 (lr=0.0178)           7.0312 ±  nan%            4.1755 ±  nan
+2023-03-28 12:07:10 [INFO ]  
+2023-03-28 12:07:11 [INFO ]  Epoch:   90 [      0/  50000 ( 0%)]	Loss: 4.1538	Data Time: 0.62s	Train Time: 0.21s
+2023-03-28 12:07:22 [INFO ]  Epoch:   91 [      0/  50000 ( 0%)]	Loss: 4.2335	Data Time: 0.84s	Train Time: 0.37s
+2023-03-28 12:07:34 [INFO ]  Epoch:   92 [      0/  50000 ( 0%)]	Loss: 4.1947	Data Time: 0.39s	Train Time: 0.31s
+2023-03-28 12:07:45 [INFO ]  Epoch:   93 [      0/  50000 ( 0%)]	Loss: 4.1795	Data Time: 0.18s	Train Time: 0.25s
+2023-03-28 12:07:57 [INFO ]  Epoch:   94 [      0/  50000 ( 0%)]	Loss: 4.1076	Data Time: 0.88s	Train Time: 0.25s
+2023-03-28 12:08:08 [INFO ]  Epoch:   95 [      0/  50000 ( 0%)]	Loss: 4.1698	Data Time: 0.26s	Train Time: 0.43s
+2023-03-28 12:08:19 [INFO ]  Epoch:   96 [      0/  50000 ( 0%)]	Loss: 4.1880	Data Time: 0.26s	Train Time: 0.30s
+2023-03-28 12:08:30 [INFO ]  Epoch:   97 [      0/  50000 ( 0%)]	Loss: 4.2358	Data Time: 0.40s	Train Time: 0.28s
+2023-03-28 12:08:41 [INFO ]  Epoch:   98 [      0/  50000 ( 0%)]	Loss: 4.1775	Data Time: 0.37s	Train Time: 0.33s
+2023-03-28 12:08:52 [INFO ]  Epoch:   99 [      0/  50000 ( 0%)]	Loss: 4.1680	Data Time: 0.67s	Train Time: 0.34s
+2023-03-28 12:09:03 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0100/results.pth
+2023-03-28 12:09:03 [INFO ]  
+2023-03-28 12:09:03 [INFO ]  Begin of epoch 100 :
+2023-03-28 12:09:04 [INFO ]  Begin of epoch 100  (1 unknown_init nets) test results: 
+2023-03-28 12:09:04 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:09:04 [INFO ]  	            before steps           0.9766 ±  nan%            4.6206 ±  nan
+2023-03-28 12:09:04 [INFO ]  	     step 30 (lr=0.0184)           7.1289 ±  nan%            4.1639 ±  nan
+2023-03-28 12:09:04 [INFO ]  
+2023-03-28 12:09:04 [INFO ]  Epoch:  100 [      0/  50000 ( 0%)]	Loss: 4.1262	Data Time: 0.23s	Train Time: 0.20s
+2023-03-28 12:09:15 [INFO ]  Epoch:  101 [      0/  50000 ( 0%)]	Loss: 4.1826	Data Time: 0.25s	Train Time: 0.21s
+2023-03-28 12:09:27 [INFO ]  Epoch:  102 [      0/  50000 ( 0%)]	Loss: 4.1591	Data Time: 0.71s	Train Time: 0.29s
+2023-03-28 12:09:38 [INFO ]  Epoch:  103 [      0/  50000 ( 0%)]	Loss: 4.1653	Data Time: 0.63s	Train Time: 0.31s
+2023-03-28 12:09:50 [INFO ]  Epoch:  104 [      0/  50000 ( 0%)]	Loss: 4.2041	Data Time: 0.78s	Train Time: 0.41s
+2023-03-28 12:10:00 [INFO ]  Epoch:  105 [      0/  50000 ( 0%)]	Loss: 4.3092	Data Time: 0.33s	Train Time: 0.24s
+2023-03-28 12:10:12 [INFO ]  Epoch:  106 [      0/  50000 ( 0%)]	Loss: 4.1312	Data Time: 0.79s	Train Time: 0.23s
+2023-03-28 12:10:24 [INFO ]  Epoch:  107 [      0/  50000 ( 0%)]	Loss: 4.2088	Data Time: 0.45s	Train Time: 0.33s
+2023-03-28 12:10:34 [INFO ]  Epoch:  108 [      0/  50000 ( 0%)]	Loss: 4.2095	Data Time: 0.56s	Train Time: 0.29s
+2023-03-28 12:10:45 [INFO ]  Epoch:  109 [      0/  50000 ( 0%)]	Loss: 4.1545	Data Time: 0.62s	Train Time: 0.23s
+2023-03-28 12:10:56 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0110/results.pth
+2023-03-28 12:10:56 [INFO ]  
+2023-03-28 12:10:56 [INFO ]  Begin of epoch 110 :
+2023-03-28 12:10:57 [INFO ]  Begin of epoch 110  (1 unknown_init nets) test results: 
+2023-03-28 12:10:57 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:10:57 [INFO ]  	            before steps           0.7812 ±  nan%            4.6445 ±  nan
+2023-03-28 12:10:57 [INFO ]  	     step 30 (lr=0.0187)           8.9844 ±  nan%            4.0840 ±  nan
+2023-03-28 12:10:57 [INFO ]  
+2023-03-28 12:10:58 [INFO ]  Epoch:  110 [      0/  50000 ( 0%)]	Loss: 4.1347	Data Time: 0.36s	Train Time: 0.20s
+2023-03-28 12:11:08 [INFO ]  Epoch:  111 [      0/  50000 ( 0%)]	Loss: 4.1410	Data Time: 0.48s	Train Time: 0.23s
+2023-03-28 12:11:19 [INFO ]  Epoch:  112 [      0/  50000 ( 0%)]	Loss: 4.1603	Data Time: 0.29s	Train Time: 0.30s
+2023-03-28 12:11:31 [INFO ]  Epoch:  113 [      0/  50000 ( 0%)]	Loss: 4.0977	Data Time: 0.46s	Train Time: 0.45s
+2023-03-28 12:11:42 [INFO ]  Epoch:  114 [      0/  50000 ( 0%)]	Loss: 4.1532	Data Time: 0.70s	Train Time: 0.42s
+2023-03-28 12:11:53 [INFO ]  Epoch:  115 [      0/  50000 ( 0%)]	Loss: 4.1592	Data Time: 0.30s	Train Time: 0.35s
+2023-03-28 12:12:05 [INFO ]  Epoch:  116 [      0/  50000 ( 0%)]	Loss: 4.1005	Data Time: 0.68s	Train Time: 0.26s
+2023-03-28 12:12:16 [INFO ]  Epoch:  117 [      0/  50000 ( 0%)]	Loss: 4.2036	Data Time: 0.34s	Train Time: 0.28s
+2023-03-28 12:12:27 [INFO ]  Epoch:  118 [      0/  50000 ( 0%)]	Loss: 4.2007	Data Time: 0.21s	Train Time: 0.25s
+2023-03-28 12:12:38 [INFO ]  Epoch:  119 [      0/  50000 ( 0%)]	Loss: 4.1236	Data Time: 0.32s	Train Time: 0.31s
+2023-03-28 12:12:49 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0120/results.pth
+2023-03-28 12:12:49 [INFO ]  
+2023-03-28 12:12:49 [INFO ]  Begin of epoch 120 :
+2023-03-28 12:12:50 [INFO ]  Begin of epoch 120  (1 unknown_init nets) test results: 
+2023-03-28 12:12:50 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:12:50 [INFO ]  	            before steps           1.4648 ±  nan%            4.6112 ±  nan
+2023-03-28 12:12:50 [INFO ]  	     step 30 (lr=0.0192)           8.1055 ±  nan%            4.1217 ±  nan
+2023-03-28 12:12:50 [INFO ]  
+2023-03-28 12:12:51 [INFO ]  Epoch:  120 [      0/  50000 ( 0%)]	Loss: 4.1186	Data Time: 0.27s	Train Time: 0.20s
+2023-03-28 12:13:02 [INFO ]  Epoch:  121 [      0/  50000 ( 0%)]	Loss: 4.1799	Data Time: 0.62s	Train Time: 0.24s
+2023-03-28 12:13:13 [INFO ]  Epoch:  122 [      0/  50000 ( 0%)]	Loss: 4.1707	Data Time: 0.81s	Train Time: 0.33s
+2023-03-28 12:13:25 [INFO ]  Epoch:  123 [      0/  50000 ( 0%)]	Loss: 4.2357	Data Time: 0.82s	Train Time: 0.29s
+2023-03-28 12:13:35 [INFO ]  Epoch:  124 [      0/  50000 ( 0%)]	Loss: 4.1855	Data Time: 0.23s	Train Time: 0.24s
+2023-03-28 12:13:47 [INFO ]  Epoch:  125 [      0/  50000 ( 0%)]	Loss: 4.1700	Data Time: 0.31s	Train Time: 0.34s
+2023-03-28 12:13:58 [INFO ]  Epoch:  126 [      0/  50000 ( 0%)]	Loss: 4.1732	Data Time: 0.59s	Train Time: 0.29s
+2023-03-28 12:14:09 [INFO ]  Epoch:  127 [      0/  50000 ( 0%)]	Loss: 4.1678	Data Time: 0.39s	Train Time: 0.25s
+2023-03-28 12:14:20 [INFO ]  Epoch:  128 [      0/  50000 ( 0%)]	Loss: 4.1682	Data Time: 0.19s	Train Time: 0.28s
+2023-03-28 12:14:31 [INFO ]  Epoch:  129 [      0/  50000 ( 0%)]	Loss: 4.1454	Data Time: 0.30s	Train Time: 0.27s
+2023-03-28 12:14:42 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0130/results.pth
+2023-03-28 12:14:42 [INFO ]  
+2023-03-28 12:14:42 [INFO ]  Begin of epoch 130 :
+2023-03-28 12:14:43 [INFO ]  Begin of epoch 130  (1 unknown_init nets) test results: 
+2023-03-28 12:14:43 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:14:43 [INFO ]  	            before steps           0.7812 ±  nan%            4.6318 ±  nan
+2023-03-28 12:14:43 [INFO ]  	     step 30 (lr=0.0189)           8.3984 ±  nan%            4.1451 ±  nan
+2023-03-28 12:14:43 [INFO ]  
+2023-03-28 12:14:43 [INFO ]  Epoch:  130 [      0/  50000 ( 0%)]	Loss: 4.1689	Data Time: 0.58s	Train Time: 0.21s
+2023-03-28 12:14:54 [INFO ]  Epoch:  131 [      0/  50000 ( 0%)]	Loss: 4.1796	Data Time: 0.37s	Train Time: 0.33s
+2023-03-28 12:15:06 [INFO ]  Epoch:  132 [      0/  50000 ( 0%)]	Loss: 4.1249	Data Time: 0.63s	Train Time: 0.45s
+2023-03-28 12:15:17 [INFO ]  Epoch:  133 [      0/  50000 ( 0%)]	Loss: 4.2319	Data Time: 0.25s	Train Time: 0.31s
+2023-03-28 12:15:28 [INFO ]  Epoch:  134 [      0/  50000 ( 0%)]	Loss: 4.1649	Data Time: 0.63s	Train Time: 0.38s
+2023-03-28 12:15:40 [INFO ]  Epoch:  135 [      0/  50000 ( 0%)]	Loss: 4.0778	Data Time: 0.23s	Train Time: 0.41s
+2023-03-28 12:15:51 [INFO ]  Epoch:  136 [      0/  50000 ( 0%)]	Loss: 4.1873	Data Time: 0.28s	Train Time: 0.28s
+2023-03-28 12:16:02 [INFO ]  Epoch:  137 [      0/  50000 ( 0%)]	Loss: 4.1295	Data Time: 0.39s	Train Time: 0.35s
+2023-03-28 12:16:13 [INFO ]  Epoch:  138 [      0/  50000 ( 0%)]	Loss: 4.1496	Data Time: 0.57s	Train Time: 0.32s
+2023-03-28 12:16:24 [INFO ]  Epoch:  139 [      0/  50000 ( 0%)]	Loss: 4.1669	Data Time: 0.57s	Train Time: 0.34s
+2023-03-28 12:16:35 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0140/results.pth
+2023-03-28 12:16:35 [INFO ]  
+2023-03-28 12:16:35 [INFO ]  Begin of epoch 140 :
+2023-03-28 12:16:36 [INFO ]  Begin of epoch 140  (1 unknown_init nets) test results: 
+2023-03-28 12:16:36 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:16:36 [INFO ]  	            before steps           1.2695 ±  nan%            4.6202 ±  nan
+2023-03-28 12:16:36 [INFO ]  	     step 30 (lr=0.0194)           8.0078 ±  nan%            4.1326 ±  nan
+2023-03-28 12:16:36 [INFO ]  
+2023-03-28 12:16:36 [INFO ]  Epoch:  140 [      0/  50000 ( 0%)]	Loss: 4.1771	Data Time: 0.18s	Train Time: 0.20s
+2023-03-28 12:16:47 [INFO ]  Epoch:  141 [      0/  50000 ( 0%)]	Loss: 4.2430	Data Time: 0.28s	Train Time: 0.32s
+2023-03-28 12:16:58 [INFO ]  Epoch:  142 [      0/  50000 ( 0%)]	Loss: 4.1949	Data Time: 0.27s	Train Time: 0.31s
+2023-03-28 12:17:10 [INFO ]  Epoch:  143 [      0/  50000 ( 0%)]	Loss: 4.1503	Data Time: 0.34s	Train Time: 0.38s
+2023-03-28 12:17:21 [INFO ]  Epoch:  144 [      0/  50000 ( 0%)]	Loss: 4.0863	Data Time: 0.56s	Train Time: 0.37s
+2023-03-28 12:17:32 [INFO ]  Epoch:  145 [      0/  50000 ( 0%)]	Loss: 4.1327	Data Time: 0.29s	Train Time: 0.24s
+2023-03-28 12:17:44 [INFO ]  Epoch:  146 [      0/  50000 ( 0%)]	Loss: 4.1443	Data Time: 0.48s	Train Time: 0.41s
+2023-03-28 12:17:55 [INFO ]  Epoch:  147 [      0/  50000 ( 0%)]	Loss: 4.1350	Data Time: 0.29s	Train Time: 0.24s
+2023-03-28 12:18:05 [INFO ]  Epoch:  148 [      0/  50000 ( 0%)]	Loss: 4.1997	Data Time: 0.26s	Train Time: 0.33s
+2023-03-28 12:18:16 [INFO ]  Epoch:  149 [      0/  50000 ( 0%)]	Loss: 4.2348	Data Time: 0.23s	Train Time: 0.40s
+2023-03-28 12:18:27 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0150/results.pth
+2023-03-28 12:18:27 [INFO ]  
+2023-03-28 12:18:27 [INFO ]  Begin of epoch 150 :
+2023-03-28 12:18:28 [INFO ]  Begin of epoch 150  (1 unknown_init nets) test results: 
+2023-03-28 12:18:28 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:18:28 [INFO ]  	            before steps           0.8789 ±  nan%            4.6572 ±  nan
+2023-03-28 12:18:28 [INFO ]  	     step 30 (lr=0.0190)           6.2500 ±  nan%            4.2053 ±  nan
+2023-03-28 12:18:28 [INFO ]  
+2023-03-28 12:18:29 [INFO ]  Epoch:  150 [      0/  50000 ( 0%)]	Loss: 4.0917	Data Time: 0.45s	Train Time: 0.20s
+2023-03-28 12:18:39 [INFO ]  Epoch:  151 [      0/  50000 ( 0%)]	Loss: 4.1923	Data Time: 0.59s	Train Time: 0.26s
+2023-03-28 12:18:51 [INFO ]  Epoch:  152 [      0/  50000 ( 0%)]	Loss: 4.1782	Data Time: 0.69s	Train Time: 0.36s
+2023-03-28 12:19:02 [INFO ]  Epoch:  153 [      0/  50000 ( 0%)]	Loss: 4.2112	Data Time: 0.53s	Train Time: 0.27s
+2023-03-28 12:19:14 [INFO ]  Epoch:  154 [      0/  50000 ( 0%)]	Loss: 4.2056	Data Time: 0.66s	Train Time: 0.29s
+2023-03-28 12:19:26 [INFO ]  Epoch:  155 [      0/  50000 ( 0%)]	Loss: 4.0984	Data Time: 0.63s	Train Time: 0.30s
+2023-03-28 12:19:37 [INFO ]  Epoch:  156 [      0/  50000 ( 0%)]	Loss: 4.1823	Data Time: 0.49s	Train Time: 0.42s
+2023-03-28 12:19:49 [INFO ]  Epoch:  157 [      0/  50000 ( 0%)]	Loss: 4.1371	Data Time: 0.21s	Train Time: 0.37s
+2023-03-28 12:20:00 [INFO ]  Epoch:  158 [      0/  50000 ( 0%)]	Loss: 4.0869	Data Time: 0.54s	Train Time: 0.36s
+2023-03-28 12:20:10 [INFO ]  Epoch:  159 [      0/  50000 ( 0%)]	Loss: 4.1379	Data Time: 0.36s	Train Time: 0.31s
+2023-03-28 12:20:22 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0160/results.pth
+2023-03-28 12:20:22 [INFO ]  
+2023-03-28 12:20:22 [INFO ]  Begin of epoch 160 :
+2023-03-28 12:20:23 [INFO ]  Begin of epoch 160  (1 unknown_init nets) test results: 
+2023-03-28 12:20:23 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:20:23 [INFO ]  	            before steps           1.2695 ±  nan%            4.6223 ±  nan
+2023-03-28 12:20:23 [INFO ]  	     step 30 (lr=0.0190)          10.9375 ±  nan%            4.0514 ±  nan
+2023-03-28 12:20:23 [INFO ]  
+2023-03-28 12:20:23 [INFO ]  Epoch:  160 [      0/  50000 ( 0%)]	Loss: 4.1369	Data Time: 0.46s	Train Time: 0.20s
+2023-03-28 12:20:34 [INFO ]  Epoch:  161 [      0/  50000 ( 0%)]	Loss: 4.1725	Data Time: 0.27s	Train Time: 0.29s
+2023-03-28 12:20:45 [INFO ]  Epoch:  162 [      0/  50000 ( 0%)]	Loss: 4.0927	Data Time: 0.66s	Train Time: 0.28s
+2023-03-28 12:20:57 [INFO ]  Epoch:  163 [      0/  50000 ( 0%)]	Loss: 4.1442	Data Time: 0.24s	Train Time: 0.31s
+2023-03-28 12:21:08 [INFO ]  Epoch:  164 [      0/  50000 ( 0%)]	Loss: 4.1553	Data Time: 1.00s	Train Time: 0.31s
+2023-03-28 12:21:19 [INFO ]  Epoch:  165 [      0/  50000 ( 0%)]	Loss: 4.2349	Data Time: 0.26s	Train Time: 0.31s
+2023-03-28 12:21:31 [INFO ]  Epoch:  166 [      0/  50000 ( 0%)]	Loss: 4.1434	Data Time: 0.65s	Train Time: 0.34s
+2023-03-28 12:21:43 [INFO ]  Epoch:  167 [      0/  50000 ( 0%)]	Loss: 4.0617	Data Time: 0.70s	Train Time: 0.28s
+2023-03-28 12:21:53 [INFO ]  Epoch:  168 [      0/  50000 ( 0%)]	Loss: 4.1386	Data Time: 0.63s	Train Time: 0.26s
+2023-03-28 12:22:04 [INFO ]  Epoch:  169 [      0/  50000 ( 0%)]	Loss: 4.2129	Data Time: 0.45s	Train Time: 0.33s
+2023-03-28 12:22:15 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0170/results.pth
+2023-03-28 12:22:15 [INFO ]  
+2023-03-28 12:22:15 [INFO ]  Begin of epoch 170 :
+2023-03-28 12:22:16 [INFO ]  Begin of epoch 170  (1 unknown_init nets) test results: 
+2023-03-28 12:22:16 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:22:16 [INFO ]  	            before steps           1.2695 ±  nan%            4.6463 ±  nan
+2023-03-28 12:22:16 [INFO ]  	     step 30 (lr=0.0191)           8.0078 ±  nan%            4.1171 ±  nan
+2023-03-28 12:22:16 [INFO ]  
+2023-03-28 12:22:17 [INFO ]  Epoch:  170 [      0/  50000 ( 0%)]	Loss: 4.0892	Data Time: 0.30s	Train Time: 0.21s
+2023-03-28 12:22:28 [INFO ]  Epoch:  171 [      0/  50000 ( 0%)]	Loss: 4.1968	Data Time: 0.76s	Train Time: 0.23s
+2023-03-28 12:22:39 [INFO ]  Epoch:  172 [      0/  50000 ( 0%)]	Loss: 4.1066	Data Time: 0.40s	Train Time: 0.34s
+2023-03-28 12:22:51 [INFO ]  Epoch:  173 [      0/  50000 ( 0%)]	Loss: 4.1286	Data Time: 0.31s	Train Time: 0.27s
+2023-03-28 12:23:02 [INFO ]  Epoch:  174 [      0/  50000 ( 0%)]	Loss: 4.2222	Data Time: 0.72s	Train Time: 0.32s
+2023-03-28 12:23:14 [INFO ]  Epoch:  175 [      0/  50000 ( 0%)]	Loss: 4.0945	Data Time: 0.93s	Train Time: 0.47s
+2023-03-28 12:23:25 [INFO ]  Epoch:  176 [      0/  50000 ( 0%)]	Loss: 4.1794	Data Time: 0.62s	Train Time: 0.32s
+2023-03-28 12:23:36 [INFO ]  Epoch:  177 [      0/  50000 ( 0%)]	Loss: 4.1246	Data Time: 0.34s	Train Time: 0.36s
+2023-03-28 12:23:47 [INFO ]  Epoch:  178 [      0/  50000 ( 0%)]	Loss: 4.1005	Data Time: 0.68s	Train Time: 0.31s
+2023-03-28 12:23:58 [INFO ]  Epoch:  179 [      0/  50000 ( 0%)]	Loss: 4.1758	Data Time: 0.36s	Train Time: 0.29s
+2023-03-28 12:24:09 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0180/results.pth
+2023-03-28 12:24:09 [INFO ]  
+2023-03-28 12:24:09 [INFO ]  Begin of epoch 180 :
+2023-03-28 12:24:10 [INFO ]  Begin of epoch 180  (1 unknown_init nets) test results: 
+2023-03-28 12:24:10 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:24:10 [INFO ]  	            before steps           0.9766 ±  nan%            4.6241 ±  nan
+2023-03-28 12:24:10 [INFO ]  	     step 30 (lr=0.0188)           9.5703 ±  nan%            4.1181 ±  nan
+2023-03-28 12:24:10 [INFO ]  
+2023-03-28 12:24:10 [INFO ]  Epoch:  180 [      0/  50000 ( 0%)]	Loss: 4.1083	Data Time: 0.32s	Train Time: 0.20s
+2023-03-28 12:24:21 [INFO ]  Epoch:  181 [      0/  50000 ( 0%)]	Loss: 4.1302	Data Time: 0.32s	Train Time: 0.32s
+2023-03-28 12:24:33 [INFO ]  Epoch:  182 [      0/  50000 ( 0%)]	Loss: 4.1215	Data Time: 0.20s	Train Time: 0.36s
+2023-03-28 12:24:44 [INFO ]  Epoch:  183 [      0/  50000 ( 0%)]	Loss: 4.1197	Data Time: 0.58s	Train Time: 0.26s
+2023-03-28 12:24:55 [INFO ]  Epoch:  184 [      0/  50000 ( 0%)]	Loss: 4.2529	Data Time: 0.23s	Train Time: 0.39s
+2023-03-28 12:25:07 [INFO ]  Epoch:  185 [      0/  50000 ( 0%)]	Loss: 4.1286	Data Time: 0.27s	Train Time: 0.25s
+2023-03-28 12:25:19 [INFO ]  Epoch:  186 [      0/  50000 ( 0%)]	Loss: 4.1442	Data Time: 0.42s	Train Time: 0.36s
+2023-03-28 12:25:30 [INFO ]  Epoch:  187 [      0/  50000 ( 0%)]	Loss: 4.1625	Data Time: 0.31s	Train Time: 0.20s
+2023-03-28 12:25:41 [INFO ]  Epoch:  188 [      0/  50000 ( 0%)]	Loss: 4.0976	Data Time: 0.24s	Train Time: 0.28s
+2023-03-28 12:25:52 [INFO ]  Epoch:  189 [      0/  50000 ( 0%)]	Loss: 4.1746	Data Time: 0.65s	Train Time: 0.23s
+2023-03-28 12:26:03 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0190/results.pth
+2023-03-28 12:26:03 [INFO ]  
+2023-03-28 12:26:03 [INFO ]  Begin of epoch 190 :
+2023-03-28 12:26:04 [INFO ]  Begin of epoch 190  (1 unknown_init nets) test results: 
+2023-03-28 12:26:04 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:26:04 [INFO ]  	            before steps           1.2695 ±  nan%            4.6299 ±  nan
+2023-03-28 12:26:04 [INFO ]  	     step 30 (lr=0.0190)           9.1797 ±  nan%            4.1266 ±  nan
+2023-03-28 12:26:04 [INFO ]  
+2023-03-28 12:26:05 [INFO ]  Epoch:  190 [      0/  50000 ( 0%)]	Loss: 4.1638	Data Time: 0.57s	Train Time: 0.26s
+2023-03-28 12:26:16 [INFO ]  Epoch:  191 [      0/  50000 ( 0%)]	Loss: 4.1445	Data Time: 0.30s	Train Time: 0.35s
+2023-03-28 12:26:27 [INFO ]  Epoch:  192 [      0/  50000 ( 0%)]	Loss: 4.0818	Data Time: 0.24s	Train Time: 0.41s
+2023-03-28 12:26:38 [INFO ]  Epoch:  193 [      0/  50000 ( 0%)]	Loss: 4.0706	Data Time: 0.54s	Train Time: 0.28s
+2023-03-28 12:26:49 [INFO ]  Epoch:  194 [      0/  50000 ( 0%)]	Loss: 4.2450	Data Time: 0.64s	Train Time: 0.26s
+2023-03-28 12:27:01 [INFO ]  Epoch:  195 [      0/  50000 ( 0%)]	Loss: 4.1157	Data Time: 0.42s	Train Time: 0.36s
+2023-03-28 12:27:11 [INFO ]  Epoch:  196 [      0/  50000 ( 0%)]	Loss: 4.2387	Data Time: 0.38s	Train Time: 0.32s
+2023-03-28 12:27:23 [INFO ]  Epoch:  197 [      0/  50000 ( 0%)]	Loss: 4.1486	Data Time: 0.28s	Train Time: 0.30s
+2023-03-28 12:27:34 [INFO ]  Epoch:  198 [      0/  50000 ( 0%)]	Loss: 4.1586	Data Time: 0.21s	Train Time: 0.33s
+2023-03-28 12:27:45 [INFO ]  Epoch:  199 [      0/  50000 ( 0%)]	Loss: 4.0981	Data Time: 0.86s	Train Time: 0.29s
+2023-03-28 12:27:55 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0200/results.pth
+2023-03-28 12:27:55 [INFO ]  
+2023-03-28 12:27:55 [INFO ]  Begin of epoch 200 :
+2023-03-28 12:27:57 [INFO ]  Begin of epoch 200  (1 unknown_init nets) test results: 
+2023-03-28 12:27:57 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:27:57 [INFO ]  	            before steps           1.4648 ±  nan%            4.6298 ±  nan
+2023-03-28 12:27:57 [INFO ]  	     step 30 (lr=0.0190)           9.4727 ±  nan%            4.0614 ±  nan
+2023-03-28 12:27:57 [INFO ]  
+2023-03-28 12:27:57 [INFO ]  Epoch:  200 [      0/  50000 ( 0%)]	Loss: 4.1143	Data Time: 0.15s	Train Time: 0.21s
+2023-03-28 12:28:08 [INFO ]  Epoch:  201 [      0/  50000 ( 0%)]	Loss: 4.1022	Data Time: 0.53s	Train Time: 0.39s
+2023-03-28 12:28:19 [INFO ]  Epoch:  202 [      0/  50000 ( 0%)]	Loss: 4.1164	Data Time: 0.53s	Train Time: 0.25s
+2023-03-28 12:28:31 [INFO ]  Epoch:  203 [      0/  50000 ( 0%)]	Loss: 4.1424	Data Time: 0.77s	Train Time: 0.29s
+2023-03-28 12:28:42 [INFO ]  Epoch:  204 [      0/  50000 ( 0%)]	Loss: 4.1887	Data Time: 0.49s	Train Time: 0.30s
+2023-03-28 12:28:53 [INFO ]  Epoch:  205 [      0/  50000 ( 0%)]	Loss: 4.1814	Data Time: 0.41s	Train Time: 0.30s
+2023-03-28 12:29:04 [INFO ]  Epoch:  206 [      0/  50000 ( 0%)]	Loss: 4.1552	Data Time: 0.24s	Train Time: 0.33s
+2023-03-28 12:29:15 [INFO ]  Epoch:  207 [      0/  50000 ( 0%)]	Loss: 4.0299	Data Time: 0.22s	Train Time: 0.27s
+2023-03-28 12:29:26 [INFO ]  Epoch:  208 [      0/  50000 ( 0%)]	Loss: 4.1563	Data Time: 0.48s	Train Time: 0.33s
+2023-03-28 12:29:36 [INFO ]  Epoch:  209 [      0/  50000 ( 0%)]	Loss: 4.2283	Data Time: 0.21s	Train Time: 0.20s
+2023-03-28 12:29:47 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0210/results.pth
+2023-03-28 12:29:47 [INFO ]  
+2023-03-28 12:29:47 [INFO ]  Begin of epoch 210 :
+2023-03-28 12:29:49 [INFO ]  Begin of epoch 210  (1 unknown_init nets) test results: 
+2023-03-28 12:29:49 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:29:49 [INFO ]  	            before steps           0.9766 ±  nan%            4.6424 ±  nan
+2023-03-28 12:29:49 [INFO ]  	     step 30 (lr=0.0192)           7.9102 ±  nan%            4.1185 ±  nan
+2023-03-28 12:29:49 [INFO ]  
+2023-03-28 12:29:49 [INFO ]  Epoch:  210 [      0/  50000 ( 0%)]	Loss: 4.1764	Data Time: 0.24s	Train Time: 0.20s
+2023-03-28 12:29:59 [INFO ]  Epoch:  211 [      0/  50000 ( 0%)]	Loss: 4.1546	Data Time: 0.45s	Train Time: 0.27s
+2023-03-28 12:30:10 [INFO ]  Epoch:  212 [      0/  50000 ( 0%)]	Loss: 4.1808	Data Time: 0.60s	Train Time: 0.30s
+2023-03-28 12:30:21 [INFO ]  Epoch:  213 [      0/  50000 ( 0%)]	Loss: 4.1652	Data Time: 0.28s	Train Time: 0.32s
+2023-03-28 12:30:33 [INFO ]  Epoch:  214 [      0/  50000 ( 0%)]	Loss: 4.0783	Data Time: 0.47s	Train Time: 0.36s
+2023-03-28 12:30:44 [INFO ]  Epoch:  215 [      0/  50000 ( 0%)]	Loss: 4.1157	Data Time: 0.69s	Train Time: 0.32s
+2023-03-28 12:30:55 [INFO ]  Epoch:  216 [      0/  50000 ( 0%)]	Loss: 4.1534	Data Time: 0.57s	Train Time: 0.26s
+2023-03-28 12:31:07 [INFO ]  Epoch:  217 [      0/  50000 ( 0%)]	Loss: 4.1542	Data Time: 0.41s	Train Time: 0.46s
+2023-03-28 12:31:17 [INFO ]  Epoch:  218 [      0/  50000 ( 0%)]	Loss: 4.1509	Data Time: 0.35s	Train Time: 0.28s
+2023-03-28 12:31:28 [INFO ]  Epoch:  219 [      0/  50000 ( 0%)]	Loss: 4.1444	Data Time: 0.21s	Train Time: 0.25s
+2023-03-28 12:31:39 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0220/results.pth
+2023-03-28 12:31:39 [INFO ]  
+2023-03-28 12:31:39 [INFO ]  Begin of epoch 220 :
+2023-03-28 12:31:40 [INFO ]  Begin of epoch 220  (1 unknown_init nets) test results: 
+2023-03-28 12:31:40 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:31:40 [INFO ]  	            before steps           1.0742 ±  nan%            4.6466 ±  nan
+2023-03-28 12:31:40 [INFO ]  	     step 30 (lr=0.0192)           7.6172 ±  nan%            4.2369 ±  nan
+2023-03-28 12:31:40 [INFO ]  
+2023-03-28 12:31:41 [INFO ]  Epoch:  220 [      0/  50000 ( 0%)]	Loss: 4.1711	Data Time: 0.45s	Train Time: 0.20s
+2023-03-28 12:31:51 [INFO ]  Epoch:  221 [      0/  50000 ( 0%)]	Loss: 4.1121	Data Time: 0.46s	Train Time: 0.28s
+2023-03-28 12:32:03 [INFO ]  Epoch:  222 [      0/  50000 ( 0%)]	Loss: 4.1779	Data Time: 0.72s	Train Time: 0.34s
+2023-03-28 12:32:14 [INFO ]  Epoch:  223 [      0/  50000 ( 0%)]	Loss: 4.2025	Data Time: 0.52s	Train Time: 0.34s
+2023-03-28 12:32:25 [INFO ]  Epoch:  224 [      0/  50000 ( 0%)]	Loss: 4.1652	Data Time: 0.53s	Train Time: 0.42s
+2023-03-28 12:32:36 [INFO ]  Epoch:  225 [      0/  50000 ( 0%)]	Loss: 4.1811	Data Time: 0.34s	Train Time: 0.40s
+2023-03-28 12:32:48 [INFO ]  Epoch:  226 [      0/  50000 ( 0%)]	Loss: 4.1366	Data Time: 0.21s	Train Time: 0.32s
+2023-03-28 12:32:59 [INFO ]  Epoch:  227 [      0/  50000 ( 0%)]	Loss: 4.2232	Data Time: 0.22s	Train Time: 0.44s
+2023-03-28 12:33:10 [INFO ]  Epoch:  228 [      0/  50000 ( 0%)]	Loss: 4.1175	Data Time: 0.63s	Train Time: 0.27s
+2023-03-28 12:33:21 [INFO ]  Epoch:  229 [      0/  50000 ( 0%)]	Loss: 4.1213	Data Time: 0.38s	Train Time: 0.37s
+2023-03-28 12:33:32 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0230/results.pth
+2023-03-28 12:33:32 [INFO ]  
+2023-03-28 12:33:32 [INFO ]  Begin of epoch 230 :
+2023-03-28 12:33:33 [INFO ]  Begin of epoch 230  (1 unknown_init nets) test results: 
+2023-03-28 12:33:33 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:33:33 [INFO ]  	            before steps           0.6836 ±  nan%            4.6241 ±  nan
+2023-03-28 12:33:33 [INFO ]  	     step 30 (lr=0.0191)           6.6406 ±  nan%            4.1880 ±  nan
+2023-03-28 12:33:33 [INFO ]  
+2023-03-28 12:33:33 [INFO ]  Epoch:  230 [      0/  50000 ( 0%)]	Loss: 4.1653	Data Time: 0.63s	Train Time: 0.20s
+2023-03-28 12:33:44 [INFO ]  Epoch:  231 [      0/  50000 ( 0%)]	Loss: 4.1071	Data Time: 0.58s	Train Time: 0.25s
+2023-03-28 12:33:56 [INFO ]  Epoch:  232 [      0/  50000 ( 0%)]	Loss: 4.1017	Data Time: 0.64s	Train Time: 0.30s
+2023-03-28 12:34:07 [INFO ]  Epoch:  233 [      0/  50000 ( 0%)]	Loss: 4.1320	Data Time: 0.59s	Train Time: 0.29s
+2023-03-28 12:34:18 [INFO ]  Epoch:  234 [      0/  50000 ( 0%)]	Loss: 4.1893	Data Time: 0.55s	Train Time: 0.30s
+2023-03-28 12:34:29 [INFO ]  Epoch:  235 [      0/  50000 ( 0%)]	Loss: 4.0821	Data Time: 0.56s	Train Time: 0.26s
+2023-03-28 12:34:40 [INFO ]  Epoch:  236 [      0/  50000 ( 0%)]	Loss: 4.0931	Data Time: 0.25s	Train Time: 0.29s
+2023-03-28 12:34:52 [INFO ]  Epoch:  237 [      0/  50000 ( 0%)]	Loss: 4.0956	Data Time: 0.69s	Train Time: 0.31s
+2023-03-28 12:35:02 [INFO ]  Epoch:  238 [      0/  50000 ( 0%)]	Loss: 4.2083	Data Time: 0.33s	Train Time: 0.35s
+2023-03-28 12:35:13 [INFO ]  Epoch:  239 [      0/  50000 ( 0%)]	Loss: 4.2149	Data Time: 0.26s	Train Time: 0.35s
+2023-03-28 12:35:25 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0240/results.pth
+2023-03-28 12:35:25 [INFO ]  
+2023-03-28 12:35:25 [INFO ]  Begin of epoch 240 :
+2023-03-28 12:35:26 [INFO ]  Begin of epoch 240  (1 unknown_init nets) test results: 
+2023-03-28 12:35:26 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:35:26 [INFO ]  	            before steps           1.1719 ±  nan%            4.6527 ±  nan
+2023-03-28 12:35:26 [INFO ]  	     step 30 (lr=0.0191)           7.7148 ±  nan%            4.1147 ±  nan
+2023-03-28 12:35:26 [INFO ]  
+2023-03-28 12:35:26 [INFO ]  Epoch:  240 [      0/  50000 ( 0%)]	Loss: 4.1160	Data Time: 0.25s	Train Time: 0.20s
+2023-03-28 12:35:37 [INFO ]  Epoch:  241 [      0/  50000 ( 0%)]	Loss: 4.1113	Data Time: 0.31s	Train Time: 0.38s
+2023-03-28 12:35:48 [INFO ]  Epoch:  242 [      0/  50000 ( 0%)]	Loss: 4.1427	Data Time: 0.35s	Train Time: 0.28s
+2023-03-28 12:35:59 [INFO ]  Epoch:  243 [      0/  50000 ( 0%)]	Loss: 4.1077	Data Time: 0.74s	Train Time: 0.39s
+2023-03-28 12:36:10 [INFO ]  Epoch:  244 [      0/  50000 ( 0%)]	Loss: 4.2302	Data Time: 0.46s	Train Time: 0.38s
+2023-03-28 12:36:22 [INFO ]  Epoch:  245 [      0/  50000 ( 0%)]	Loss: 4.0761	Data Time: 0.28s	Train Time: 0.37s
+2023-03-28 12:36:33 [INFO ]  Epoch:  246 [      0/  50000 ( 0%)]	Loss: 4.1174	Data Time: 0.85s	Train Time: 0.39s
+2023-03-28 12:36:44 [INFO ]  Epoch:  247 [      0/  50000 ( 0%)]	Loss: 4.1580	Data Time: 0.54s	Train Time: 0.23s
+2023-03-28 12:36:55 [INFO ]  Epoch:  248 [      0/  50000 ( 0%)]	Loss: 4.0409	Data Time: 0.34s	Train Time: 0.24s
+2023-03-28 12:37:06 [INFO ]  Epoch:  249 [      0/  50000 ( 0%)]	Loss: 4.1588	Data Time: 0.35s	Train Time: 0.21s
+2023-03-28 12:37:17 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0250/results.pth
+2023-03-28 12:37:17 [INFO ]  
+2023-03-28 12:37:17 [INFO ]  Begin of epoch 250 :
+2023-03-28 12:37:18 [INFO ]  Begin of epoch 250  (1 unknown_init nets) test results: 
+2023-03-28 12:37:18 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:37:18 [INFO ]  	            before steps           0.9766 ±  nan%            4.6335 ±  nan
+2023-03-28 12:37:18 [INFO ]  	     step 30 (lr=0.0191)           7.1289 ±  nan%            4.2064 ±  nan
+2023-03-28 12:37:18 [INFO ]  
+2023-03-28 12:37:18 [INFO ]  Epoch:  250 [      0/  50000 ( 0%)]	Loss: 4.1402	Data Time: 0.92s	Train Time: 0.20s
+2023-03-28 12:37:29 [INFO ]  Epoch:  251 [      0/  50000 ( 0%)]	Loss: 4.2134	Data Time: 0.75s	Train Time: 0.25s
+2023-03-28 12:37:41 [INFO ]  Epoch:  252 [      0/  50000 ( 0%)]	Loss: 4.1872	Data Time: 0.48s	Train Time: 0.30s
+2023-03-28 12:37:52 [INFO ]  Epoch:  253 [      0/  50000 ( 0%)]	Loss: 4.1238	Data Time: 0.50s	Train Time: 0.21s
+2023-03-28 12:38:03 [INFO ]  Epoch:  254 [      0/  50000 ( 0%)]	Loss: 4.1942	Data Time: 0.24s	Train Time: 0.34s
+2023-03-28 12:38:14 [INFO ]  Epoch:  255 [      0/  50000 ( 0%)]	Loss: 4.0791	Data Time: 0.56s	Train Time: 0.30s
+2023-03-28 12:38:25 [INFO ]  Epoch:  256 [      0/  50000 ( 0%)]	Loss: 4.0963	Data Time: 0.37s	Train Time: 0.33s
+2023-03-28 12:38:37 [INFO ]  Epoch:  257 [      0/  50000 ( 0%)]	Loss: 4.2006	Data Time: 0.71s	Train Time: 0.29s
+2023-03-28 12:38:48 [INFO ]  Epoch:  258 [      0/  50000 ( 0%)]	Loss: 4.1392	Data Time: 0.81s	Train Time: 0.28s
+2023-03-28 12:38:59 [INFO ]  Epoch:  259 [      0/  50000 ( 0%)]	Loss: 4.1273	Data Time: 0.49s	Train Time: 0.38s
+2023-03-28 12:39:09 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0260/results.pth
+2023-03-28 12:39:09 [INFO ]  
+2023-03-28 12:39:09 [INFO ]  Begin of epoch 260 :
+2023-03-28 12:39:11 [INFO ]  Begin of epoch 260  (1 unknown_init nets) test results: 
+2023-03-28 12:39:11 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:39:11 [INFO ]  	            before steps           0.5859 ±  nan%            4.6197 ±  nan
+2023-03-28 12:39:11 [INFO ]  	     step 30 (lr=0.0191)           8.1055 ±  nan%            4.1500 ±  nan
+2023-03-28 12:39:11 [INFO ]  
+2023-03-28 12:39:11 [INFO ]  Epoch:  260 [      0/  50000 ( 0%)]	Loss: 4.1360	Data Time: 0.28s	Train Time: 0.21s
+2023-03-28 12:39:22 [INFO ]  Epoch:  261 [      0/  50000 ( 0%)]	Loss: 4.0791	Data Time: 0.50s	Train Time: 0.26s
+2023-03-28 12:39:33 [INFO ]  Epoch:  262 [      0/  50000 ( 0%)]	Loss: 4.0782	Data Time: 0.64s	Train Time: 0.27s
+2023-03-28 12:39:45 [INFO ]  Epoch:  263 [      0/  50000 ( 0%)]	Loss: 4.1288	Data Time: 0.39s	Train Time: 0.39s
+2023-03-28 12:39:56 [INFO ]  Epoch:  264 [      0/  50000 ( 0%)]	Loss: 4.2089	Data Time: 0.30s	Train Time: 0.24s
+2023-03-28 12:40:07 [INFO ]  Epoch:  265 [      0/  50000 ( 0%)]	Loss: 4.0972	Data Time: 0.72s	Train Time: 0.27s
+2023-03-28 12:40:19 [INFO ]  Epoch:  266 [      0/  50000 ( 0%)]	Loss: 4.2485	Data Time: 0.36s	Train Time: 0.35s
+2023-03-28 12:40:30 [INFO ]  Epoch:  267 [      0/  50000 ( 0%)]	Loss: 4.1295	Data Time: 0.30s	Train Time: 0.27s
+2023-03-28 12:40:41 [INFO ]  Epoch:  268 [      0/  50000 ( 0%)]	Loss: 4.1470	Data Time: 0.21s	Train Time: 0.24s
+2023-03-28 12:40:51 [INFO ]  Epoch:  269 [      0/  50000 ( 0%)]	Loss: 4.1466	Data Time: 0.21s	Train Time: 0.30s
+2023-03-28 12:41:03 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0270/results.pth
+2023-03-28 12:41:03 [INFO ]  
+2023-03-28 12:41:03 [INFO ]  Begin of epoch 270 :
+2023-03-28 12:41:04 [INFO ]  Begin of epoch 270  (1 unknown_init nets) test results: 
+2023-03-28 12:41:04 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:41:04 [INFO ]  	            before steps           0.9766 ±  nan%            4.6419 ±  nan
+2023-03-28 12:41:04 [INFO ]  	     step 30 (lr=0.0191)           8.9844 ±  nan%            4.1268 ±  nan
+2023-03-28 12:41:04 [INFO ]  
+2023-03-28 12:41:04 [INFO ]  Epoch:  270 [      0/  50000 ( 0%)]	Loss: 4.1175	Data Time: 0.64s	Train Time: 0.21s
+2023-03-28 12:41:15 [INFO ]  Epoch:  271 [      0/  50000 ( 0%)]	Loss: 4.1045	Data Time: 0.22s	Train Time: 0.33s
+2023-03-28 12:41:26 [INFO ]  Epoch:  272 [      0/  50000 ( 0%)]	Loss: 4.1158	Data Time: 0.22s	Train Time: 0.23s
+2023-03-28 12:41:37 [INFO ]  Epoch:  273 [      0/  50000 ( 0%)]	Loss: 4.2105	Data Time: 0.71s	Train Time: 0.28s
+2023-03-28 12:41:49 [INFO ]  Epoch:  274 [      0/  50000 ( 0%)]	Loss: 4.1004	Data Time: 0.20s	Train Time: 0.32s
+2023-03-28 12:42:00 [INFO ]  Epoch:  275 [      0/  50000 ( 0%)]	Loss: 4.1472	Data Time: 0.21s	Train Time: 0.24s
+2023-03-28 12:42:11 [INFO ]  Epoch:  276 [      0/  50000 ( 0%)]	Loss: 4.0901	Data Time: 0.26s	Train Time: 0.33s
+2023-03-28 12:42:22 [INFO ]  Epoch:  277 [      0/  50000 ( 0%)]	Loss: 4.2137	Data Time: 0.21s	Train Time: 0.30s
+2023-03-28 12:42:33 [INFO ]  Epoch:  278 [      0/  50000 ( 0%)]	Loss: 4.0987	Data Time: 0.43s	Train Time: 0.31s
+2023-03-28 12:42:44 [INFO ]  Epoch:  279 [      0/  50000 ( 0%)]	Loss: 4.1474	Data Time: 0.62s	Train Time: 0.35s
+2023-03-28 12:42:55 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0280/results.pth
+2023-03-28 12:42:55 [INFO ]  
+2023-03-28 12:42:55 [INFO ]  Begin of epoch 280 :
+2023-03-28 12:42:56 [INFO ]  Begin of epoch 280  (1 unknown_init nets) test results: 
+2023-03-28 12:42:56 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:42:56 [INFO ]  	            before steps           1.9531 ±  nan%            4.6330 ±  nan
+2023-03-28 12:42:56 [INFO ]  	     step 30 (lr=0.0192)           9.7656 ±  nan%            4.0507 ±  nan
+2023-03-28 12:42:56 [INFO ]  
+2023-03-28 12:42:56 [INFO ]  Epoch:  280 [      0/  50000 ( 0%)]	Loss: 4.1789	Data Time: 0.51s	Train Time: 0.21s
+2023-03-28 12:43:08 [INFO ]  Epoch:  281 [      0/  50000 ( 0%)]	Loss: 4.1591	Data Time: 0.55s	Train Time: 0.38s
+2023-03-28 12:43:19 [INFO ]  Epoch:  282 [      0/  50000 ( 0%)]	Loss: 4.0983	Data Time: 0.32s	Train Time: 0.34s
+2023-03-28 12:43:30 [INFO ]  Epoch:  283 [      0/  50000 ( 0%)]	Loss: 4.1466	Data Time: 0.24s	Train Time: 0.29s
+2023-03-28 12:43:41 [INFO ]  Epoch:  284 [      0/  50000 ( 0%)]	Loss: 4.1339	Data Time: 0.25s	Train Time: 0.30s
+2023-03-28 12:43:53 [INFO ]  Epoch:  285 [      0/  50000 ( 0%)]	Loss: 4.1468	Data Time: 0.41s	Train Time: 0.32s
+2023-03-28 12:44:04 [INFO ]  Epoch:  286 [      0/  50000 ( 0%)]	Loss: 4.0590	Data Time: 0.53s	Train Time: 0.32s
+2023-03-28 12:44:15 [INFO ]  Epoch:  287 [      0/  50000 ( 0%)]	Loss: 4.0388	Data Time: 0.19s	Train Time: 0.24s
+2023-03-28 12:44:26 [INFO ]  Epoch:  288 [      0/  50000 ( 0%)]	Loss: 4.1661	Data Time: 0.37s	Train Time: 0.37s
+2023-03-28 12:44:37 [INFO ]  Epoch:  289 [      0/  50000 ( 0%)]	Loss: 4.2004	Data Time: 0.18s	Train Time: 0.33s
+2023-03-28 12:44:48 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0290/results.pth
+2023-03-28 12:44:48 [INFO ]  
+2023-03-28 12:44:48 [INFO ]  Begin of epoch 290 :
+2023-03-28 12:44:49 [INFO ]  Begin of epoch 290  (1 unknown_init nets) test results: 
+2023-03-28 12:44:49 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:44:49 [INFO ]  	            before steps           1.2695 ±  nan%            4.6493 ±  nan
+2023-03-28 12:44:49 [INFO ]  	     step 30 (lr=0.0192)           8.7891 ±  nan%            4.2520 ±  nan
+2023-03-28 12:44:49 [INFO ]  
+2023-03-28 12:44:49 [INFO ]  Epoch:  290 [      0/  50000 ( 0%)]	Loss: 4.0961	Data Time: 0.22s	Train Time: 0.21s
+2023-03-28 12:45:00 [INFO ]  Epoch:  291 [      0/  50000 ( 0%)]	Loss: 4.1020	Data Time: 0.72s	Train Time: 0.34s
+2023-03-28 12:45:12 [INFO ]  Epoch:  292 [      0/  50000 ( 0%)]	Loss: 4.1723	Data Time: 0.62s	Train Time: 0.34s
+2023-03-28 12:45:23 [INFO ]  Epoch:  293 [      0/  50000 ( 0%)]	Loss: 4.1483	Data Time: 0.28s	Train Time: 0.37s
+2023-03-28 12:45:35 [INFO ]  Epoch:  294 [      0/  50000 ( 0%)]	Loss: 4.0800	Data Time: 0.60s	Train Time: 0.35s
+2023-03-28 12:45:46 [INFO ]  Epoch:  295 [      0/  50000 ( 0%)]	Loss: 4.1322	Data Time: 0.36s	Train Time: 0.29s
+2023-03-28 12:45:57 [INFO ]  Epoch:  296 [      0/  50000 ( 0%)]	Loss: 4.1069	Data Time: 0.21s	Train Time: 0.39s
+2023-03-28 12:46:08 [INFO ]  Epoch:  297 [      0/  50000 ( 0%)]	Loss: 4.1050	Data Time: 0.89s	Train Time: 0.25s
+2023-03-28 12:46:19 [INFO ]  Epoch:  298 [      0/  50000 ( 0%)]	Loss: 4.0888	Data Time: 0.46s	Train Time: 0.34s
+2023-03-28 12:46:30 [INFO ]  Epoch:  299 [      0/  50000 ( 0%)]	Loss: 4.1715	Data Time: 0.58s	Train Time: 0.29s
+2023-03-28 12:46:41 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0300/results.pth
+2023-03-28 12:46:41 [INFO ]  
+2023-03-28 12:46:41 [INFO ]  Begin of epoch 300 :
+2023-03-28 12:46:42 [INFO ]  Begin of epoch 300  (1 unknown_init nets) test results: 
+2023-03-28 12:46:42 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:46:42 [INFO ]  	            before steps           0.1953 ±  nan%            4.6162 ±  nan
+2023-03-28 12:46:42 [INFO ]  	     step 30 (lr=0.0192)           8.1055 ±  nan%            4.1298 ±  nan
+2023-03-28 12:46:42 [INFO ]  
+2023-03-28 12:46:43 [INFO ]  Epoch:  300 [      0/  50000 ( 0%)]	Loss: 4.1217	Data Time: 0.20s	Train Time: 0.21s
+2023-03-28 12:46:54 [INFO ]  Epoch:  301 [      0/  50000 ( 0%)]	Loss: 4.0915	Data Time: 0.46s	Train Time: 0.33s
+2023-03-28 12:47:05 [INFO ]  Epoch:  302 [      0/  50000 ( 0%)]	Loss: 4.1224	Data Time: 0.44s	Train Time: 0.26s
+2023-03-28 12:47:16 [INFO ]  Epoch:  303 [      0/  50000 ( 0%)]	Loss: 4.0981	Data Time: 0.41s	Train Time: 0.34s
+2023-03-28 12:47:27 [INFO ]  Epoch:  304 [      0/  50000 ( 0%)]	Loss: 4.0724	Data Time: 0.41s	Train Time: 0.25s
+2023-03-28 12:47:39 [INFO ]  Epoch:  305 [      0/  50000 ( 0%)]	Loss: 4.1505	Data Time: 0.80s	Train Time: 0.40s
+2023-03-28 12:47:50 [INFO ]  Epoch:  306 [      0/  50000 ( 0%)]	Loss: 4.1309	Data Time: 0.59s	Train Time: 0.28s
+2023-03-28 12:48:02 [INFO ]  Epoch:  307 [      0/  50000 ( 0%)]	Loss: 4.2206	Data Time: 0.59s	Train Time: 0.31s
+2023-03-28 12:48:12 [INFO ]  Epoch:  308 [      0/  50000 ( 0%)]	Loss: 4.2112	Data Time: 0.26s	Train Time: 0.27s
+2023-03-28 12:48:23 [INFO ]  Epoch:  309 [      0/  50000 ( 0%)]	Loss: 4.0903	Data Time: 0.78s	Train Time: 0.33s
+2023-03-28 12:48:34 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0310/results.pth
+2023-03-28 12:48:34 [INFO ]  
+2023-03-28 12:48:34 [INFO ]  Begin of epoch 310 :
+2023-03-28 12:48:36 [INFO ]  Begin of epoch 310  (1 unknown_init nets) test results: 
+2023-03-28 12:48:36 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:48:36 [INFO ]  	            before steps           1.2695 ±  nan%            4.6220 ±  nan
+2023-03-28 12:48:36 [INFO ]  	     step 30 (lr=0.0191)           8.1055 ±  nan%            4.1552 ±  nan
+2023-03-28 12:48:36 [INFO ]  
+2023-03-28 12:48:36 [INFO ]  Epoch:  310 [      0/  50000 ( 0%)]	Loss: 4.1292	Data Time: 0.26s	Train Time: 0.21s
+2023-03-28 12:48:47 [INFO ]  Epoch:  311 [      0/  50000 ( 0%)]	Loss: 4.1319	Data Time: 0.21s	Train Time: 0.36s
+2023-03-28 12:48:58 [INFO ]  Epoch:  312 [      0/  50000 ( 0%)]	Loss: 4.1743	Data Time: 0.49s	Train Time: 0.28s
+2023-03-28 12:49:09 [INFO ]  Epoch:  313 [      0/  50000 ( 0%)]	Loss: 4.1470	Data Time: 0.53s	Train Time: 0.39s
+2023-03-28 12:49:21 [INFO ]  Epoch:  314 [      0/  50000 ( 0%)]	Loss: 4.2569	Data Time: 0.26s	Train Time: 0.32s
+2023-03-28 12:49:32 [INFO ]  Epoch:  315 [      0/  50000 ( 0%)]	Loss: 4.1479	Data Time: 0.52s	Train Time: 0.39s
+2023-03-28 12:49:43 [INFO ]  Epoch:  316 [      0/  50000 ( 0%)]	Loss: 4.0313	Data Time: 0.34s	Train Time: 0.29s
+2023-03-28 12:49:55 [INFO ]  Epoch:  317 [      0/  50000 ( 0%)]	Loss: 4.2008	Data Time: 0.22s	Train Time: 0.40s
+2023-03-28 12:50:05 [INFO ]  Epoch:  318 [      0/  50000 ( 0%)]	Loss: 4.1337	Data Time: 0.47s	Train Time: 0.21s
+2023-03-28 12:50:16 [INFO ]  Epoch:  319 [      0/  50000 ( 0%)]	Loss: 4.1480	Data Time: 0.25s	Train Time: 0.35s
+2023-03-28 12:50:27 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0320/results.pth
+2023-03-28 12:50:27 [INFO ]  
+2023-03-28 12:50:27 [INFO ]  Begin of epoch 320 :
+2023-03-28 12:50:28 [INFO ]  Begin of epoch 320  (1 unknown_init nets) test results: 
+2023-03-28 12:50:28 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:50:28 [INFO ]  	            before steps           0.4883 ±  nan%            4.6208 ±  nan
+2023-03-28 12:50:28 [INFO ]  	     step 30 (lr=0.0191)           7.2266 ±  nan%            4.1909 ±  nan
+2023-03-28 12:50:28 [INFO ]  
+2023-03-28 12:50:29 [INFO ]  Epoch:  320 [      0/  50000 ( 0%)]	Loss: 4.1311	Data Time: 0.36s	Train Time: 0.20s
+2023-03-28 12:50:39 [INFO ]  Epoch:  321 [      0/  50000 ( 0%)]	Loss: 4.0699	Data Time: 0.41s	Train Time: 0.35s
+2023-03-28 12:50:51 [INFO ]  Epoch:  322 [      0/  50000 ( 0%)]	Loss: 4.2093	Data Time: 0.63s	Train Time: 0.39s
+2023-03-28 12:51:02 [INFO ]  Epoch:  323 [      0/  50000 ( 0%)]	Loss: 4.1039	Data Time: 0.38s	Train Time: 0.24s
+2023-03-28 12:51:13 [INFO ]  Epoch:  324 [      0/  50000 ( 0%)]	Loss: 4.1484	Data Time: 0.57s	Train Time: 0.22s
+2023-03-28 12:51:25 [INFO ]  Epoch:  325 [      0/  50000 ( 0%)]	Loss: 4.1286	Data Time: 0.44s	Train Time: 0.29s
+2023-03-28 12:51:36 [INFO ]  Epoch:  326 [      0/  50000 ( 0%)]	Loss: 4.2424	Data Time: 0.31s	Train Time: 0.41s
+2023-03-28 12:51:47 [INFO ]  Epoch:  327 [      0/  50000 ( 0%)]	Loss: 4.2139	Data Time: 0.23s	Train Time: 0.25s
+2023-03-28 12:51:58 [INFO ]  Epoch:  328 [      0/  50000 ( 0%)]	Loss: 4.2223	Data Time: 0.46s	Train Time: 0.29s
+2023-03-28 12:52:09 [INFO ]  Epoch:  329 [      0/  50000 ( 0%)]	Loss: 4.0947	Data Time: 0.47s	Train Time: 0.33s
+2023-03-28 12:52:20 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0330/results.pth
+2023-03-28 12:52:20 [INFO ]  
+2023-03-28 12:52:20 [INFO ]  Begin of epoch 330 :
+2023-03-28 12:52:21 [INFO ]  Begin of epoch 330  (1 unknown_init nets) test results: 
+2023-03-28 12:52:21 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:52:21 [INFO ]  	            before steps           0.9766 ±  nan%            4.6373 ±  nan
+2023-03-28 12:52:21 [INFO ]  	     step 30 (lr=0.0191)           8.3008 ±  nan%            4.0733 ±  nan
+2023-03-28 12:52:21 [INFO ]  
+2023-03-28 12:52:21 [INFO ]  Epoch:  330 [      0/  50000 ( 0%)]	Loss: 4.2207	Data Time: 0.21s	Train Time: 0.21s
+2023-03-28 12:52:33 [INFO ]  Epoch:  331 [      0/  50000 ( 0%)]	Loss: 4.1285	Data Time: 0.55s	Train Time: 0.26s
+2023-03-28 12:52:44 [INFO ]  Epoch:  332 [      0/  50000 ( 0%)]	Loss: 4.0822	Data Time: 0.67s	Train Time: 0.32s
+2023-03-28 12:52:55 [INFO ]  Epoch:  333 [      0/  50000 ( 0%)]	Loss: 4.0819	Data Time: 0.33s	Train Time: 0.27s
+2023-03-28 12:53:07 [INFO ]  Epoch:  334 [      0/  50000 ( 0%)]	Loss: 4.1362	Data Time: 0.38s	Train Time: 0.45s
+2023-03-28 12:53:18 [INFO ]  Epoch:  335 [      0/  50000 ( 0%)]	Loss: 4.1675	Data Time: 0.21s	Train Time: 0.30s
+2023-03-28 12:53:29 [INFO ]  Epoch:  336 [      0/  50000 ( 0%)]	Loss: 4.2181	Data Time: 0.84s	Train Time: 0.25s
+2023-03-28 12:53:40 [INFO ]  Epoch:  337 [      0/  50000 ( 0%)]	Loss: 4.1477	Data Time: 0.75s	Train Time: 0.21s
+2023-03-28 12:53:51 [INFO ]  Epoch:  338 [      0/  50000 ( 0%)]	Loss: 4.1154	Data Time: 0.28s	Train Time: 0.22s
+2023-03-28 12:54:02 [INFO ]  Epoch:  339 [      0/  50000 ( 0%)]	Loss: 4.2690	Data Time: 0.22s	Train Time: 0.33s
+2023-03-28 12:54:13 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0340/results.pth
+2023-03-28 12:54:13 [INFO ]  
+2023-03-28 12:54:13 [INFO ]  Begin of epoch 340 :
+2023-03-28 12:54:14 [INFO ]  Begin of epoch 340  (1 unknown_init nets) test results: 
+2023-03-28 12:54:14 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:54:14 [INFO ]  	            before steps           0.7812 ±  nan%            4.6297 ±  nan
+2023-03-28 12:54:14 [INFO ]  	     step 30 (lr=0.0191)          10.0586 ±  nan%            4.0573 ±  nan
+2023-03-28 12:54:14 [INFO ]  
+2023-03-28 12:54:14 [INFO ]  Epoch:  340 [      0/  50000 ( 0%)]	Loss: 4.1828	Data Time: 0.52s	Train Time: 0.21s
+2023-03-28 12:54:25 [INFO ]  Epoch:  341 [      0/  50000 ( 0%)]	Loss: 4.1442	Data Time: 0.70s	Train Time: 0.29s
+2023-03-28 12:54:36 [INFO ]  Epoch:  342 [      0/  50000 ( 0%)]	Loss: 4.1313	Data Time: 0.27s	Train Time: 0.40s
+2023-03-28 12:54:48 [INFO ]  Epoch:  343 [      0/  50000 ( 0%)]	Loss: 4.1226	Data Time: 0.50s	Train Time: 0.35s
+2023-03-28 12:54:59 [INFO ]  Epoch:  344 [      0/  50000 ( 0%)]	Loss: 4.1466	Data Time: 0.63s	Train Time: 0.36s
+2023-03-28 12:55:11 [INFO ]  Epoch:  345 [      0/  50000 ( 0%)]	Loss: 4.1700	Data Time: 0.85s	Train Time: 0.24s
+2023-03-28 12:55:22 [INFO ]  Epoch:  346 [      0/  50000 ( 0%)]	Loss: 4.1051	Data Time: 0.42s	Train Time: 0.33s
+2023-03-28 12:55:33 [INFO ]  Epoch:  347 [      0/  50000 ( 0%)]	Loss: 4.1342	Data Time: 0.37s	Train Time: 0.25s
+2023-03-28 12:55:44 [INFO ]  Epoch:  348 [      0/  50000 ( 0%)]	Loss: 4.2018	Data Time: 0.31s	Train Time: 0.35s
+2023-03-28 12:55:55 [INFO ]  Epoch:  349 [      0/  50000 ( 0%)]	Loss: 4.0840	Data Time: 0.49s	Train Time: 0.29s
+2023-03-28 12:56:06 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0350/results.pth
+2023-03-28 12:56:06 [INFO ]  
+2023-03-28 12:56:06 [INFO ]  Begin of epoch 350 :
+2023-03-28 12:56:07 [INFO ]  Begin of epoch 350  (1 unknown_init nets) test results: 
+2023-03-28 12:56:07 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:56:07 [INFO ]  	            before steps           0.6836 ±  nan%            4.6294 ±  nan
+2023-03-28 12:56:07 [INFO ]  	     step 30 (lr=0.0191)           7.6172 ±  nan%            4.0969 ±  nan
+2023-03-28 12:56:07 [INFO ]  
+2023-03-28 12:56:07 [INFO ]  Epoch:  350 [      0/  50000 ( 0%)]	Loss: 4.2093	Data Time: 0.46s	Train Time: 0.19s
+2023-03-28 12:56:18 [INFO ]  Epoch:  351 [      0/  50000 ( 0%)]	Loss: 4.1143	Data Time: 0.28s	Train Time: 0.36s
+2023-03-28 12:56:29 [INFO ]  Epoch:  352 [      0/  50000 ( 0%)]	Loss: 4.1980	Data Time: 0.33s	Train Time: 0.26s
+2023-03-28 12:56:41 [INFO ]  Epoch:  353 [      0/  50000 ( 0%)]	Loss: 4.1002	Data Time: 0.23s	Train Time: 0.30s
+2023-03-28 12:56:52 [INFO ]  Epoch:  354 [      0/  50000 ( 0%)]	Loss: 4.1734	Data Time: 0.62s	Train Time: 0.31s
+2023-03-28 12:57:03 [INFO ]  Epoch:  355 [      0/  50000 ( 0%)]	Loss: 4.1597	Data Time: 0.57s	Train Time: 0.28s
+2023-03-28 12:57:15 [INFO ]  Epoch:  356 [      0/  50000 ( 0%)]	Loss: 4.1677	Data Time: 0.63s	Train Time: 0.30s
+2023-03-28 12:57:26 [INFO ]  Epoch:  357 [      0/  50000 ( 0%)]	Loss: 4.2025	Data Time: 0.43s	Train Time: 0.23s
+2023-03-28 12:57:37 [INFO ]  Epoch:  358 [      0/  50000 ( 0%)]	Loss: 4.0752	Data Time: 0.47s	Train Time: 0.36s
+2023-03-28 12:57:47 [INFO ]  Epoch:  359 [      0/  50000 ( 0%)]	Loss: 4.0622	Data Time: 0.31s	Train Time: 0.41s
+2023-03-28 12:57:58 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0360/results.pth
+2023-03-28 12:57:58 [INFO ]  
+2023-03-28 12:57:58 [INFO ]  Begin of epoch 360 :
+2023-03-28 12:58:00 [INFO ]  Begin of epoch 360  (1 unknown_init nets) test results: 
+2023-03-28 12:58:00 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:58:00 [INFO ]  	            before steps           0.8789 ±  nan%            4.6682 ±  nan
+2023-03-28 12:58:00 [INFO ]  	     step 30 (lr=0.0191)           8.3984 ±  nan%            4.1580 ±  nan
+2023-03-28 12:58:00 [INFO ]  
+2023-03-28 12:58:00 [INFO ]  Epoch:  360 [      0/  50000 ( 0%)]	Loss: 4.1217	Data Time: 0.22s	Train Time: 0.20s
+2023-03-28 12:58:11 [INFO ]  Epoch:  361 [      0/  50000 ( 0%)]	Loss: 4.1201	Data Time: 0.83s	Train Time: 0.29s
+2023-03-28 12:58:22 [INFO ]  Epoch:  362 [      0/  50000 ( 0%)]	Loss: 4.1418	Data Time: 0.58s	Train Time: 0.27s
+2023-03-28 12:58:33 [INFO ]  Epoch:  363 [      0/  50000 ( 0%)]	Loss: 4.1822	Data Time: 0.50s	Train Time: 0.25s
+2023-03-28 12:58:44 [INFO ]  Epoch:  364 [      0/  50000 ( 0%)]	Loss: 4.0969	Data Time: 0.70s	Train Time: 0.22s
+2023-03-28 12:58:56 [INFO ]  Epoch:  365 [      0/  50000 ( 0%)]	Loss: 4.1665	Data Time: 0.91s	Train Time: 0.29s
+2023-03-28 12:59:07 [INFO ]  Epoch:  366 [      0/  50000 ( 0%)]	Loss: 4.3372	Data Time: 0.63s	Train Time: 0.39s
+2023-03-28 12:59:18 [INFO ]  Epoch:  367 [      0/  50000 ( 0%)]	Loss: 4.1573	Data Time: 0.29s	Train Time: 0.42s
+2023-03-28 12:59:29 [INFO ]  Epoch:  368 [      0/  50000 ( 0%)]	Loss: 4.0957	Data Time: 0.25s	Train Time: 0.27s
+2023-03-28 12:59:40 [INFO ]  Epoch:  369 [      0/  50000 ( 0%)]	Loss: 4.2187	Data Time: 0.20s	Train Time: 0.29s
+2023-03-28 12:59:51 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0370/results.pth
+2023-03-28 12:59:51 [INFO ]  
+2023-03-28 12:59:51 [INFO ]  Begin of epoch 370 :
+2023-03-28 12:59:52 [INFO ]  Begin of epoch 370  (1 unknown_init nets) test results: 
+2023-03-28 12:59:52 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 12:59:52 [INFO ]  	            before steps           1.1719 ±  nan%            4.6268 ±  nan
+2023-03-28 12:59:52 [INFO ]  	     step 30 (lr=0.0191)          10.1562 ±  nan%            4.1252 ±  nan
+2023-03-28 12:59:52 [INFO ]  
+2023-03-28 12:59:53 [INFO ]  Epoch:  370 [      0/  50000 ( 0%)]	Loss: 4.1288	Data Time: 0.88s	Train Time: 0.20s
+2023-03-28 13:00:04 [INFO ]  Epoch:  371 [      0/  50000 ( 0%)]	Loss: 4.2353	Data Time: 0.39s	Train Time: 0.30s
+2023-03-28 13:00:15 [INFO ]  Epoch:  372 [      0/  50000 ( 0%)]	Loss: 4.1910	Data Time: 0.73s	Train Time: 0.25s
+2023-03-28 13:00:27 [INFO ]  Epoch:  373 [      0/  50000 ( 0%)]	Loss: 4.0837	Data Time: 0.28s	Train Time: 0.30s
+2023-03-28 13:00:37 [INFO ]  Epoch:  374 [      0/  50000 ( 0%)]	Loss: 4.1707	Data Time: 0.20s	Train Time: 0.26s
+2023-03-28 13:00:49 [INFO ]  Epoch:  375 [      0/  50000 ( 0%)]	Loss: 4.1504	Data Time: 0.50s	Train Time: 0.29s
+2023-03-28 13:01:00 [INFO ]  Epoch:  376 [      0/  50000 ( 0%)]	Loss: 4.0970	Data Time: 0.25s	Train Time: 0.36s
+2023-03-28 13:01:11 [INFO ]  Epoch:  377 [      0/  50000 ( 0%)]	Loss: 4.1657	Data Time: 0.28s	Train Time: 0.27s
+2023-03-28 13:01:22 [INFO ]  Epoch:  378 [      0/  50000 ( 0%)]	Loss: 4.1841	Data Time: 0.23s	Train Time: 0.26s
+2023-03-28 13:01:33 [INFO ]  Epoch:  379 [      0/  50000 ( 0%)]	Loss: 4.1404	Data Time: 0.21s	Train Time: 0.24s
+2023-03-28 13:01:44 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0380/results.pth
+2023-03-28 13:01:44 [INFO ]  
+2023-03-28 13:01:44 [INFO ]  Begin of epoch 380 :
+2023-03-28 13:01:45 [INFO ]  Begin of epoch 380  (1 unknown_init nets) test results: 
+2023-03-28 13:01:45 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 13:01:45 [INFO ]  	            before steps           0.1953 ±  nan%            4.6426 ±  nan
+2023-03-28 13:01:45 [INFO ]  	     step 30 (lr=0.0191)           9.0820 ±  nan%            4.0832 ±  nan
+2023-03-28 13:01:45 [INFO ]  
+2023-03-28 13:01:45 [INFO ]  Epoch:  380 [      0/  50000 ( 0%)]	Loss: 4.1467	Data Time: 0.26s	Train Time: 0.22s
+2023-03-28 13:01:56 [INFO ]  Epoch:  381 [      0/  50000 ( 0%)]	Loss: 4.1473	Data Time: 0.50s	Train Time: 0.29s
+2023-03-28 13:02:08 [INFO ]  Epoch:  382 [      0/  50000 ( 0%)]	Loss: 4.0914	Data Time: 0.46s	Train Time: 0.31s
+2023-03-28 13:02:19 [INFO ]  Epoch:  383 [      0/  50000 ( 0%)]	Loss: 4.1074	Data Time: 0.59s	Train Time: 0.37s
+2023-03-28 13:02:30 [INFO ]  Epoch:  384 [      0/  50000 ( 0%)]	Loss: 4.1048	Data Time: 0.36s	Train Time: 0.31s
+2023-03-28 13:02:41 [INFO ]  Epoch:  385 [      0/  50000 ( 0%)]	Loss: 4.1896	Data Time: 0.27s	Train Time: 0.21s
+2023-03-28 13:02:53 [INFO ]  Epoch:  386 [      0/  50000 ( 0%)]	Loss: 4.1231	Data Time: 0.28s	Train Time: 0.35s
+2023-03-28 13:03:04 [INFO ]  Epoch:  387 [      0/  50000 ( 0%)]	Loss: 4.1145	Data Time: 0.65s	Train Time: 0.30s
+2023-03-28 13:03:15 [INFO ]  Epoch:  388 [      0/  50000 ( 0%)]	Loss: 4.2934	Data Time: 0.84s	Train Time: 0.24s
+2023-03-28 13:03:25 [INFO ]  Epoch:  389 [      0/  50000 ( 0%)]	Loss: 4.1163	Data Time: 0.22s	Train Time: 0.24s
+2023-03-28 13:03:37 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/checkpoints/epoch0390/results.pth
+2023-03-28 13:03:37 [INFO ]  
+2023-03-28 13:03:37 [INFO ]  Begin of epoch 390 :
+2023-03-28 13:03:38 [INFO ]  Begin of epoch 390  (1 unknown_init nets) test results: 
+2023-03-28 13:03:38 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 13:03:38 [INFO ]  	            before steps           0.7812 ±  nan%            4.6273 ±  nan
+2023-03-28 13:03:38 [INFO ]  	     step 30 (lr=0.0191)           8.3008 ±  nan%            4.0915 ±  nan
+2023-03-28 13:03:38 [INFO ]  
+2023-03-28 13:03:38 [INFO ]  Epoch:  390 [      0/  50000 ( 0%)]	Loss: 4.1686	Data Time: 0.20s	Train Time: 0.21s
+2023-03-28 13:03:49 [INFO ]  Epoch:  391 [      0/  50000 ( 0%)]	Loss: 4.1588	Data Time: 0.78s	Train Time: 0.37s
+2023-03-28 13:04:00 [INFO ]  Epoch:  392 [      0/  50000 ( 0%)]	Loss: 4.1152	Data Time: 0.44s	Train Time: 0.29s
+2023-03-28 13:04:11 [INFO ]  Epoch:  393 [      0/  50000 ( 0%)]	Loss: 4.1365	Data Time: 0.34s	Train Time: 0.28s
+2023-03-28 13:04:23 [INFO ]  Epoch:  394 [      0/  50000 ( 0%)]	Loss: 4.1682	Data Time: 0.40s	Train Time: 0.29s
+2023-03-28 13:04:34 [INFO ]  Epoch:  395 [      0/  50000 ( 0%)]	Loss: 4.0813	Data Time: 0.26s	Train Time: 0.38s
+2023-03-28 13:04:45 [INFO ]  Epoch:  396 [      0/  50000 ( 0%)]	Loss: 4.1377	Data Time: 0.26s	Train Time: 0.26s
+2023-03-28 13:04:56 [INFO ]  Epoch:  397 [      0/  50000 ( 0%)]	Loss: 4.1283	Data Time: 0.55s	Train Time: 0.38s
+2023-03-28 13:05:07 [INFO ]  Epoch:  398 [      0/  50000 ( 0%)]	Loss: 4.0838	Data Time: 0.35s	Train Time: 0.30s
+2023-03-28 13:05:18 [INFO ]  Epoch:  399 [      0/  50000 ( 0%)]	Loss: 4.1031	Data Time: 0.27s	Train Time: 0.29s
+2023-03-28 13:05:28 [INFO ]  Results saved to ./results/distill_basic/Cifar100/arch(AlexCifarNet,xavier,1.0)_distillLR0.001_E(400,40,0.5)_lr0.01_B1x10x3_train(unknown_init)/results.pth
+2023-03-28 13:05:28 [INFO ]  
+2023-03-28 13:05:28 [INFO ]  distilled with 10 steps and 3 epochs  (test ALL):
+2023-03-28 13:05:30 [INFO ]  distilled with 10 steps and 3 epochs  (1 unknown_init nets) test results: 
+2023-03-28 13:05:30 [INFO ]  	          STEP                   ACCURACY                   LOSS          
+2023-03-28 13:05:30 [INFO ]  	            before steps           1.1500 ±  nan%            4.6421 ±  nan
+2023-03-28 13:05:30 [INFO ]  	     step 30 (lr=0.0191)           8.5900 ±  nan%            4.0906 ±  nan
+2023-03-28 13:05:30 [INFO ]  
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@cccxc577.pok.ibm.com>
+Subject: Job 1290259: <cifar100_distillation> in cluster <cccCluster> Done
+
+Job <cifar100_distillation> was submitted from host <cccxl016.pok.ibm.com> by user <krishna> in cluster <cccCluster> at Tue Mar 28 11:47:37 2023
+Job was executed on host(s) <4*cccxc577.pok.ibm.com>, in queue <x86_12h>, as user <krishna> in cluster <cccCluster> at Tue Mar 28 11:49:40 2023
+</u/krishna> was used as the home directory.
+</dccstor/storage_1/dataset-distillation> was used as the working directory.
+Started at Tue Mar 28 11:49:40 2023
+Terminated at Tue Mar 28 13:06:38 2023
+Results reported at Tue Mar 28 13:06:38 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+echo -e "The CCC job has started!\nJob Number:\t$LSB_JOBID\nJob Name:\t$LSB_JOBNAME" | mail -s "CCC Job $LSB_JOBNAME started!" krishnateja.killamsetty1@ibm.com; python main.py --mode distill_basic --dataset Cifar100 --arch AlexCifarNet --distill_lr 0.001; echo -e "Please find attached the log files for you CCC job\nJob Number:\t$LSB_JOBID\nJob Name:\t$LSB_JOBNAME\nLog file attached\ncifar100_distillation_out.txt:\n $(cat cifar100_distillation_out.txt)\ncifar100_distillation_err.txt:\n $(cat cifar100_distillation_err.txt)" | mail -s "CCC Job $LSB_JOBNAME finished. Log file attached" -a cifar100_distillation_out.txt -a cifar100_distillation_err.txt krishnateja.killamsetty1@ibm.com
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   14333.53 sec.
+    Max Memory :                                 3082 MB
+    Average Memory :                             2480.24 MB
+    Total Requested Memory :                     337920.00 MB
+    Delta Memory :                               334838.00 MB
+    Max Swap :                                   -
+    Max Processes :                              20
+    Max Threads :                                74
+    Run time :                                   4617 sec.
+    Turnaround time :                            4741 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <cifar100_distillation_err.txt> for stderr output of this job.
+

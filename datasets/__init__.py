@@ -1,10 +1,8 @@
 import contextlib
 import os
 from collections import namedtuple
-
 from PIL import Image
 from torchvision import datasets, transforms
-
 from . import caltech_ucsd_birds
 from . import pascal_voc
 from .usps import USPS
@@ -15,6 +13,7 @@ default_dataset_roots = dict(
     SVHN='./data/svhn',
     USPS='./data/usps',
     Cifar10='./data/cifar10',
+    Cifar100='./data/cifar100',
     CUB200='./data/birds',
     PASCAL_VOC='./data/pascal_voc',
 )
@@ -27,6 +26,7 @@ dataset_normalization = dict(
     SVHN=((0.4379104971885681, 0.44398033618927, 0.4729299545288086),
           (0.19803012907505035, 0.2010156363248825, 0.19703614711761475)),
     Cifar10=((0.4914, 0.4822, 0.4465), (0.247, 0.243, 0.261)),
+    Cifar100=((0.5071, 0.4865, 0.4409), (0.2673, 0.2564, 0.2762)),
     CUB200=((0.47850531339645386, 0.4992702007293701, 0.4022205173969269),
             (0.23210887610912323, 0.2277066558599472, 0.26652416586875916)),
     PASCAL_VOC=((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
@@ -40,6 +40,26 @@ dataset_labels = dict(
     SVHN=list(range(10)),
     Cifar10=('plane', 'car', 'bird', 'cat',
              'deer', 'dog', 'monkey', 'horse', 'ship', 'truck'),
+    Cifar100=('apple', 'aquarium_fish', 'baby', 'bear', 'beaver',
+              'bed', 'bee', 'beetle', 'bicycle', 'bottle',
+              'bowl', 'boy', 'bridge', 'bus', 'butterfly',
+              'camel', 'can', 'castle', 'caterpillar', 'cattle',
+              'chair', 'chimpanzee', 'clock', 'cloud', 'cockroach',
+              'couch', 'crab', 'crocodile', 'cup', 'dinosaur',
+              'dolphin', 'elephant', 'flatfish', 'forest', 'fox',
+              'girl', 'hamster', 'house', 'kangaroo', 'computer_keyboard',
+              'lamp', 'lawn_mower', 'leopard', 'lion', 'lizard',
+              'lobster', 'man', 'maple_tree', 'motorcycle', 'mountain',
+              'mouse', 'mushroom', 'oak_tree', 'orange', 'orchid',
+              'otter', 'palm_tree', 'pear', 'pickup_truck', 'pine_tree',
+              'plain', 'plate', 'poppy', 'porcupine', 'possum', 
+              'rabbit', 'raccoon', 'ray', 'road', 'rocket',
+              'rose', 'sea', 'seal', 'shark', 'shrew',
+              'skunk', 'skyscraper', 'snail', 'snake', 'spider',
+              'squirrel', 'streetcar', 'sunflower', 'sweet_pepper', 'table',
+              'tank', 'telephone', 'television', 'tiger', 'tractor',
+              'train', 'trout', 'tulip', 'turtle', 'wardrobe',
+              'whale', 'willow_tree', 'wolf', 'woman', 'worm'),
     CUB200=caltech_ucsd_birds.class_labels,
     PASCAL_VOC=pascal_voc.object_categories,
 )
@@ -53,6 +73,7 @@ dataset_stats = dict(
     USPS=DatasetStats(1, 28, 10),
     SVHN=DatasetStats(3, 32, 10),
     Cifar10=DatasetStats(3, 32, 10),
+    Cifar100=DatasetStats(3, 32, 100),
     CUB200=DatasetStats(3, 224, 200),
     PASCAL_VOC=DatasetStats(3, 224, 20),
 )
@@ -150,6 +171,26 @@ def get_dataset(state, phase):
         ]
         with suppress_stdout():
             return datasets.CIFAR10(root, phase == 'train', transforms.Compose(transform_list), download=True)
+    elif name == 'Cifar100':
+        transform_list = []
+        if input_size != real_size:
+            transform_list += [
+                transforms.Resize([input_size, input_size], Image.BICUBIC),
+            ]
+        if phase == 'train':
+            transform_list += [
+                # TODO: merge the following into the padding options of
+                #       RandomCrop when a new torchvision version is released.
+                transforms.Pad(padding=4, padding_mode='reflect'),
+                transforms.RandomCrop(input_size),
+                transforms.RandomHorizontalFlip(),
+            ]
+        transform_list += [
+            transforms.ToTensor(),
+            transforms.Normalize(*normalization),
+        ]
+        with suppress_stdout():
+            return datasets.CIFAR100(root, phase == 'train', transforms.Compose(transform_list), download=True)
     elif name == 'CUB200':
         transform_list = []
         if phase == 'train':

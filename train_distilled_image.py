@@ -173,7 +173,10 @@ class Trainer(object):
             bwd_out += list(lrs)
             bwd_grad += list(glrs)
             for d, g in zip(datas, gdatas):
-                d.grad.add_(g)
+                if d.grad is None:
+                    d.grad = g.detach().clone()
+                else:
+                    d.grad.add_(g)
         if len(bwd_out) > 0:
             torch.autograd.backward(bwd_out, bwd_grad)
 
