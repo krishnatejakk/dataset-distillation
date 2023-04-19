@@ -40,40 +40,70 @@ def _vis_results_fn(np_steps, distilled_images_per_class_per_step, dataset_info,
         ]
         if len(np_steps) > 1:
             fmts.append('Step: {{step}}')
-        if np_steps[0][-1] is not None:
-            fmts.append('LR: {{lr:.4f}}')
+        if len(np_steps[0]) == 3:
+            if np_steps[0][-1] is not None:
+                fmts.append('LR: {{lr:.4f}}')
         supertitle_fmt = ', '.join(fmts).format(dataset=dataset, arch=arch)
 
     plt_images = []
     first_run = True
-    for i, (data, labels, lr) in enumerate(np_steps):
-        for n, (img, label, axis) in enumerate(zip(data, labels, axes)):
-            if nc == 1:
-                img = img[..., 0]
-            img = (img * std + mean).clip(0, 1)
-            if first_run:
-                plt_images.append(axis.imshow(img, interpolation='nearest', cmap=cmap))
+    if len(np_steps[0]) == 2:
+        for i, (data, labels) in enumerate(np_steps):
+            for n, (img, label, axis) in enumerate(zip(data, labels, axes)):
+                if nc == 1:
+                    img = img[..., 0]
+                img = (img * std + mean).clip(0, 1)
+                if first_run:
+                    plt_images.append(axis.imshow(img, interpolation='nearest', cmap=cmap))
+                else:
+                    plt_images[n].set_data(img)
+                if first_run:
+                    axis.axis('off')
+                    if subtitle:
+                        axis.set_title('Label {}'.format(label_names[label]), fontsize=fontsize)
+            if supertitle:
+                plt.suptitle(supertitle_fmt.format(step=i), fontsize=fontsize)
+                if first_run:
+                    plt.tight_layout(pad=0.4, w_pad=0.5, h_pad=1.0, rect=[0, 0, 1, 0.95])
+            fig.canvas.draw()
+            if vis_dir is not None:
+                plt.savefig(os.path.join(vis_dir, vis_name_fmt.format(step=i)), dpi=dpi)
+            if reuse_axes:
+                first_run = False
             else:
-                plt_images[n].set_data(img)
-            if first_run:
-                axis.axis('off')
-                if subtitle:
-                    axis.set_title('Label {}'.format(label_names[label]), fontsize=fontsize)
-        if supertitle:
-            if lr is not None:
-                lr = lr.sum().item()
-            plt.suptitle(supertitle_fmt.format(step=i, lr=lr), fontsize=fontsize)
-            if first_run:
-                plt.tight_layout(pad=0.4, w_pad=0.5, h_pad=1.0, rect=[0, 0, 1, 0.95])
-        fig.canvas.draw()
-        if vis_dir is not None:
-            plt.savefig(os.path.join(vis_dir, vis_name_fmt.format(step=i)), dpi=dpi)
-        if reuse_axes:
-            first_run = False
-        else:
-            fig, axes = plt.subplots(nrows=grid[0], ncols=grid[1])
-            axes = axes.flatten()
-            plt.show()
+                fig, axes = plt.subplots(nrows=grid[0], ncols=grid[1])
+                axes = axes.flatten()
+                plt.show()
+    
+    else:
+        for i, (data, labels, lr) in enumerate(np_steps):
+            for n, (img, label, axis) in enumerate(zip(data, labels, axes)):
+                if nc == 1:
+                    img = img[..., 0]
+                img = (img * std + mean).clip(0, 1)
+                if first_run:
+                    plt_images.append(axis.imshow(img, interpolation='nearest', cmap=cmap))
+                else:
+                    plt_images[n].set_data(img)
+                if first_run:
+                    axis.axis('off')
+                    if subtitle:
+                        axis.set_title('Label {}'.format(label_names[label]), fontsize=fontsize)
+            if supertitle:
+                if lr is not None:
+                    lr = lr.sum().item()
+                plt.suptitle(supertitle_fmt.format(step=i, lr=lr), fontsize=fontsize)
+                if first_run:
+                    plt.tight_layout(pad=0.4, w_pad=0.5, h_pad=1.0, rect=[0, 0, 1, 0.95])
+            fig.canvas.draw()
+            if vis_dir is not None:
+                plt.savefig(os.path.join(vis_dir, vis_name_fmt.format(step=i)), dpi=dpi)
+            if reuse_axes:
+                first_run = False
+            else:
+                fig, axes = plt.subplots(nrows=grid[0], ncols=grid[1])
+                axes = axes.flatten()
+                plt.show()
 
 
 def vis_results(state, steps, *args, immediate=False, **kwargs):
@@ -99,12 +129,18 @@ def to_np(steps):
     if isinstance(steps[0][0], np.ndarray):  # noop if already ndarray
         return steps
     np_steps = []
-    for data, label, lr in steps:
-        np_data = data.detach().permute(0, 2, 3, 1).to('cpu').numpy()
-        np_label = label.detach().to('cpu').numpy()
-        if lr is not None:
-            lr = lr.detach().cpu().numpy()
-        np_steps.append((np_data, np_label, lr))
+    if len(steps[0]) == 2:
+        for data, label in steps:
+            np_data = data.detach().permute(0, 2, 3, 1).to('cpu').numpy()
+            np_label = label.detach().to('cpu').numpy()
+            np_steps.append((np_data, np_label))
+    else:
+        for data, label, lr in steps:
+            np_data = data.detach().permute(0, 2, 3, 1).to('cpu').numpy()
+            np_label = label.detach().to('cpu').numpy()
+            if lr is not None:
+                lr = lr.detach().cpu().numpy()
+            np_steps.append((np_data, np_label, lr))
     return np_steps
 
 
@@ -129,7 +165,10 @@ def save_results(state, steps, visualize=True, subfolder=''):
     utils.mkdir(expr_dir)
     save_data_path = os.path.join(expr_dir, 'results.pth')
 
-    steps = [(d.detach().cpu(), l.detach().cpu(), lr) for (d, l, lr) in steps]
+    if len(steps[0]) == 2:
+        steps = [(d.detach().cpu(), l.detach().cpu()) for (d, l) in steps]
+    else:
+        steps = [(d.detach().cpu(), l.detach().cpu(), lr) for (d, l, lr) in steps]
     if visualize:
         vis_results(state, steps, expr_dir)
 

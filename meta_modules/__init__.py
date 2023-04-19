@@ -1,7 +1,7 @@
 import logging
 import sys
-from .networks import *
-
+from . import utils
+from .meta_module import *
 
 def get_networks(state, N=None, arch=None):
     N = N or state.local_n_nets

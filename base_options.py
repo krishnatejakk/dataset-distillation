@@ -5,12 +5,10 @@ import os
 import random
 import time
 from contextlib import contextmanager
-
 import numpy as np
 import torch
 import torch.distributed as dist
 import yaml
-
 import datasets
 import utils
 

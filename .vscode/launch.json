@@ -9,14 +9,14 @@
             "name": "Python: Attach",
             "type": "python",
                         
-            //"request": "launch",   //restore this to just run
+            "request": "launch",   //restore this to just run
             
            // remote debug
-            "request" : "attach",
-            "listen": {
-                "host" : "0.0.0.0",
-                "port" : 1326
-            },
+            // "request" : "attach",
+            // "listen": {
+            //     "host" : "0.0.0.0",
+            //     "port" : 1326
+            // },
 
             "program": "${file}",
             "console": "integratedTerminal",

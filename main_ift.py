@@ -9,7 +9,7 @@ import torch
 import torch.nn.functional as F
 import torch.optim as optim
 import networks
-import train_distilled_image
+import train_distilled_image_ift
 import utils
 from base_options import options
 from basics import evaluate_models, evaluate_steps, format_stepwise_results
@@ -38,6 +38,7 @@ def train(state, model, epoch, optimizer):
 
 def main(state):
     logging.info('mode: {}, phase: {}'.format(state.mode, state.phase))
+
     if state.mode == 'train':
         model_dir = state.get_model_dir()
         utils.mkdir(model_dir)
@@ -124,7 +125,7 @@ def main(state):
 
         if state.phase == 'train':
             logging.info('Train {} steps iterated for {} epochs'.format(state.distill_steps, state.distill_epochs))
-            steps = train_distilled_image.distill(state, state.models)
+            steps = train_distilled_image_ift.distill(state, state.models)
             evaluate_steps(state, steps,
                            'distilled with {} steps and {} epochs'.format(state.distill_steps, state.distill_epochs),
                            test_all=True)
