@@ -54,9 +54,10 @@ class Trainer(object):
             broadcast_coalesced(self.params)
             logging.info("parameters broadcast done!")
 
-        self.optimizer = optim.Adam(self.params, lr=state.lr, betas=(0.5, 0.999))
-        self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=state.decay_epochs,
-                                                   gamma=state.decay_factor)
+        self.optimizer = optim.SGD(self.params, lr=optim_lr, momentum=0.9, weight_decay=5e-4)
+        # self.optimizer = optim.Adam(self.params, lr=state.lr, betas=(0.5, 0.999))
+        # self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=state.decay_epochs,
+        #                                            gamma=state.decay_factor)
         for p in self.params:
             p.grad = torch.zeros_like(p)
 
@@ -101,8 +102,8 @@ class Trainer(object):
         for epoch, it, (rdata, rlabel) in self.prefetch_train_loader_iter():
             data_t = time.time() - data_t0
 
-            if it == 0:
-                self.scheduler.step()
+            # if it == 0:
+            #     self.scheduler.step()
 
             if it == 0 and ((ckpt_int >= 0 and epoch % ckpt_int == 0) or epoch == 0):
                 with torch.no_grad():
@@ -143,10 +144,11 @@ class Trainer(object):
 
                 #Final Training Loss
                 loss = 0
+                cnt = len(self.data)
                 for x in zip(self.data, self.labels):
                     output = model(x[0])
-                    loss += task_loss(state, output, x[1])
-                
+                    loss += task_loss(state, output, x[1])/cnt
+
                 #Final Validation Loss
                 val_loss = final_objective_loss(state, model(rdata), rlabel)
                 
@@ -157,18 +159,19 @@ class Trainer(object):
                 #Compute Approx. Inverse Hessian Vector Product
                 p  = list(copy.deepcopy(v))
                 
-                for _ in range(100):
+                for _ in range(20):
                     old_v = list(v)
                     temp1 = torch.autograd.grad(f, model.parameters(), retain_graph=True, grad_outputs=v)
                     temp1 = list(temp1)
-                    for k in range(len(old_v)):
-                        old_v[k] -= (state.distill_lr * temp1[k])
+                    v = list(v)
+                    for k in range(len(v)):
+                        v[k] = old_v[k] - (state.distill_lr * temp1[k])
                     v = tuple(old_v)
                     for k in range(len(v)):
                         p[k] += v[k]
                 p = tuple(p)
                 v3 = torch.autograd.grad(f, self.params, grad_outputs=p)
-                param_grads = [x for x in list(v3)]
+                param_grads = [-x for x in list(v3)]
 
                 #Update Parameters
                 for param, grad in zip(self.params, param_grads):

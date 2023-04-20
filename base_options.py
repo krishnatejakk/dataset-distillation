@@ -219,7 +219,7 @@ class BaseOptions(object):
                             help='period of weight decay (default: 40)')
         parser.add_argument('--decay_factor', type=pos_float, default=0.5, metavar='N',
                             help='weight decay multiplicative factor (default: 0.1)')
-        parser.add_argument('--lr', type=pos_float, default=0.01, metavar='LR',
+        parser.add_argument('--lr', type=pos_float, default=1, metavar='LR',
                             help='learning rate used to actually learn stuff (default: 0.01)')
         parser.add_argument('--init', type=str, default='xavier',
                             help='network initialization [normal|xavier|kaiming|orthogonal|zero|default]')
@@ -243,7 +243,7 @@ class BaseOptions(object):
                             help='architecture: LeNet | AlexNet | etc.')
         parser.add_argument('--mode', type=str, default='distill_basic',
                             help='mode: train | distill_basic | distill_attack | distill_adapt ')
-        parser.add_argument('--distill_lr', type=float, default=0.02,
+        parser.add_argument('--distill_lr', type=float, default=0.01,
                             help='learning rate to perform GD with distilled images PER STEP (default: 0.02)')
         parser.add_argument('--model_dir', type=str, default='./models/',
                             help='directory storing trained models')
