@@ -10,9 +10,9 @@ from utils.distributed import broadcast_coalesced, all_reduce_coalesced
 from utils.io import save_results
 
 
-def permute_list(list):
-    indices = np.random.permutation(len(list))
-    return [list[i] for i in indices]
+def permute_list(input_list):
+    indices = np.random.permutation(len(input_list))
+    return [input_list[i] for i in indices]
 
 
 class Trainer(object):
@@ -54,8 +54,7 @@ class Trainer(object):
             broadcast_coalesced(self.params)
             logging.info("parameters broadcast done!")
 
-        self.optimizer = optim.SGD(self.params, lr=optim_lr, momentum=0.9, weight_decay=1e-5, nesterov=True)
-        # self.optimizer = optim.Adam(self.params, lr=optim_lr, betas=(0.5, 0.999))
+        self.optimizer = optim.SGD(self.params, lr=optim_lr, momentum=0.9, weight_decay=5e-4)
         # self.optimizer = optim.AdamW(self.params, lr=optim_lr, betas=(0.5, 0.999), weight_decay=5e-4)
         self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=state.decay_epochs,
                                                    gamma=state.decay_factor)
@@ -133,36 +132,40 @@ class Trainer(object):
                 if state.train_nets_type == 'unknown_init':
                     model.reset(state)
                 model.train()
-                for step_i, (data, label) in enumerate(steps):
+                
+                # params = list(model.parameters())
+                # grouped_params = [list(p) for p in zip(*params)]
+                
+                for data, label in steps:
                     output = model(data)
                     loss = task_loss(state, output, label)
                     loss.backward()
-
+            
                     with torch.no_grad():
                         for param in model.parameters():
-                            param.sub_(state.distill_lr * param.grad)
+                            param -= state.distill_lr * param.grad
                             param.grad.zero_()
-
-                #Final Training Loss
+            
+                # Final Training Loss
                 loss = 0
-                cnt = len(self.data)
-                for x in zip(self.data, self.labels):
-                    output = model(x[0])
-                    loss += task_loss(state, output, x[1])/cnt
-
-                #Final Validation Loss
+                for i, (data, label) in enumerate(zip(self.data, self.labels)):
+                    output = model(data)
+                    loss += task_loss(state, output, label) / len(self.data)
+                
+                # Final Validation Loss
                 val_loss = final_objective_loss(state, model(rdata), rlabel)
                 
-                #Compute Hyper-Gradient using Implicit Differentiation
+                # Compute Hyper-Gradient using Implicit Differentiation
                 v = torch.autograd.grad(val_loss, model.parameters(), retain_graph=True)
-                f = torch.autograd.grad(loss, model.parameters(), retain_graph=True, create_graph=True)
-
-                #Compute Approx. Inverse Hessian Vector Product
-                p  = list(copy.deepcopy(v))
+                f = torch.autograd.grad(loss, model.parameters(), create_graph=True)
                 
-                for _ in range(state.neumann_terms_cnt):
+                # Compute Approx. Inverse Hessian Vector Product
+                p = [v_i.detach().clone() for v_i in v]
+                
+                for _ in range(20):
                     old_v = list(v)
-                    temp1 = torch.autograd.grad(f, model.parameters(), retain_graph=True, grad_outputs=v)
+                    with torch.enable_grad():
+                        temp1 = torch.autograd.grad(f, model.parameters(), retain_graph=True, grad_outputs=v)
                     temp1 = list(temp1)
                     v = list(v)
                     for k in range(len(v)):
@@ -170,37 +173,42 @@ class Trainer(object):
                     v = tuple(old_v)
                     for k in range(len(v)):
                         p[k] += v[k]
-                p = tuple(p)
-                v3 = torch.autograd.grad(f, self.params, grad_outputs=p)
-                param_grads = [-x for x in list(v3)]
-
-                #Update Parameters
-                for param, grad in zip(self.params, param_grads):
-                    if param.grad is None:
-                        param.grad = grad
-                    else:
-                        param.grad.add_(grad)
-
-                losses.append(val_loss.detach())
-            
-            # all reduce if needed
-            # average grad
-            all_reduce_tensors = [p.grad for p in self.params]
-            if do_log_this_iter:
-                losses = torch.stack(losses, 0).sum()
-                all_reduce_tensors.append(losses)
-
-            if state.distributed:
-                all_reduce_coalesced(all_reduce_tensors, grad_divisor)
-            else:
-                for t in all_reduce_tensors:
-                    t.div_(grad_divisor)
-
-            # Step the optimizer
-            self.optimizer.step()
-            self.optimizer.zero_grad()
+                p = tuple([-x for x in p])
                 
-            t = time.time() - t0
+                # Compute gradients
+                with torch.enable_grad():
+                    v3 = torch.autograd.grad(f, self.params, grad_outputs=p)
+                
+                # Store gradients
+                grad_infos.append(v3)
+                self.optimizer.zero_grad()
+                for p in self.params:
+                    p.grad = torch.zeros_like(p)
+                
+                for grads in grad_infos:
+                    for g, p in zip(grads, self.params):
+                        p.grad.data.add_(g.data)
+                
+                losses.append(val_loss.detach())
+                
+                # all reduce if needed
+                all_reduce_tensors = [p.grad for p in model.parameters()]
+                if do_log_this_iter:
+                    losses = torch.stack(losses, 0).sum()
+                    all_reduce_tensors.append(losses)
+                
+                if state.distributed:
+                    torch.distributed.all_reduce_coalesced(all_reduce_tensors, grad_divisor)
+                else:
+                    for t in all_reduce_tensors:
+                        t.div_(grad_divisor)
+                
+                # Step the optimizer
+                self.optimizer.step()
+                self.optimizer.zero_grad()
+                
+            t1 = time.time()
+            t = t1 - t0
 
             if do_log_this_iter:
                 loss = losses.item()
@@ -218,11 +226,13 @@ class Trainer(object):
 
             data_t0 = time.time()
 
+        # End of Training
         with torch.no_grad():
             steps = self.get_steps()
-        self.save_results(steps)
+        self.save_results(steps=steps, subfolder='final')
+        evaluate_steps(state, steps, 'End of Training')
+
         return steps
-
-
+    
 def distill(state, models):
     return Trainer(state, models).train()

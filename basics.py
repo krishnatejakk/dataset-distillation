@@ -61,22 +61,23 @@ def train_steps_inplace(state, models, steps, params=None, callback=None):
         params = [m.get_param() for m in models]
 
     if len(steps[0]) == 2:
-        for i, (data, label) in enumerate(steps):
-            if callback is not None:
-                callback(i, params)
+        for _ in range(state.evaluate_epochs):
+            for i, (data, label) in enumerate(steps):
+                if callback is not None:
+                    callback(i, params)
 
-            data = data.detach()
-            label = label.detach()
-            # lr = lr.detach()
+                data = data.detach()
+                label = label.detach()
+                # lr = lr.detach()
 
-            for model, w in zip(models, params):
-                model.train()  # callback may change model.training so we set here
-                output = model.forward_with_param(data, w)
-                loss = task_loss(state, output, label)
-                loss.backward()
-                with torch.no_grad():
-                    w.sub_(state.distill_lr * w.grad)
-                    w.grad = None
+                for model, w in zip(models, params):
+                    model.train()  # callback may change model.training so we set here
+                    output = model.forward_with_param(data, w)
+                    loss = task_loss(state, output, label)
+                    loss.backward()
+                    with torch.no_grad():
+                        w.sub_(state.distill_lr * w.grad)
+                        w.grad = None
     else:
         for i, (data, label, lr) in enumerate(steps):
             if callback is not None:

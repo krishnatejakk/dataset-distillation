@@ -207,15 +207,15 @@ class BaseOptions(object):
         for name, action_cls in action_registry.items():
             action_registry[name] = get_unique_action_cls(action_cls)
 
-        parser.add_argument('--batch_size', type=pos_int, default=1024,
+        parser.add_argument('--batch_size', type=pos_int, default=5120,
                             help='input batch size for training (default: 1024)')
-        parser.add_argument('--test_batch_size', type=pos_int, default=1024,
+        parser.add_argument('--test_batch_size', type=pos_int, default=5120,
                             help='input batch size for testing (default: 1024)')
         parser.add_argument('--test_niter', type=pos_int, default=1,
                             help='max number of batches to test (default: 1)')
         parser.add_argument('--epochs', type=pos_int, default=400, metavar='N',
                             help='number of total epochs to train (default: 400)')
-        parser.add_argument('--decay_epochs', type=pos_int, default=40, metavar='N',
+        parser.add_argument('--decay_epochs', type=pos_int, default=50, metavar='N',
                             help='period of weight decay (default: 40)')
         parser.add_argument('--decay_factor', type=pos_float, default=0.5, metavar='N',
                             help='weight decay multiplicative factor (default: 0.1)')
@@ -243,7 +243,7 @@ class BaseOptions(object):
                             help='architecture: LeNet | AlexNet | etc.')
         parser.add_argument('--mode', type=str, default='distill_basic',
                             help='mode: train | distill_basic | distill_attack | distill_adapt ')
-        parser.add_argument('--distill_lr', type=float, default=0.01,
+        parser.add_argument('--distill_lr', type=float, default=0.02,
                             help='learning rate to perform GD with distilled images PER STEP (default: 0.02)')
         parser.add_argument('--model_dir', type=str, default='./models/',
                             help='directory storing trained models')
@@ -261,8 +261,11 @@ class BaseOptions(object):
                             help='Iterative distillation, use #num_steps * #batch_size * #classes distilled images. '
                                  'See also --distill_epochs. The total number '
                                  'of steps is distill_steps * distill_epochs.')
-        parser.add_argument('--distill_epochs', type=pos_int, default=3,
+        parser.add_argument('--distill_epochs', type=pos_int, default=5,
                             help='how many times to repeat all steps 1, 2, 3, 1, 2, 3, ...')
+        parser.add_argument('--evaluate_epochs', type=pos_int, default=5, help='how many times to evaluate')
+        parser.add_argument('--neumann_terms_cnt', type=pos_int, default=5,
+                            help='number of Neumann terms to use in the Neumann series approximation')
         parser.add_argument('--n_nets', type=int, default=1,
                             help='# random nets')
         parser.add_argument('--sample_n_nets', type=pos_int, default=None,
