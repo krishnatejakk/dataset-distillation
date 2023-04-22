@@ -110,8 +110,7 @@ class Trainer(object):
                 epoch_counter += 1
                 self.scheduler.step()
 
-            if it == 0 and ((ckpt_int >= 0 and epoch % ck
-            pt_int == 0) or epoch == 0):
+            if it == 0 and ((ckpt_int >= 0 and epoch % ckpt_int == 0) or epoch == 0):
                 with torch.no_grad():
                     steps = self.get_steps()
                 self.save_results(steps=steps, subfolder='checkpoints/epoch{:04d}'.format(epoch))
