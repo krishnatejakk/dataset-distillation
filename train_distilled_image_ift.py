@@ -54,7 +54,7 @@ class Trainer(object):
             broadcast_coalesced(self.params)
             logging.info("parameters broadcast done!")
 
-        self.optimizer = optim.SGD(self.params, lr=optim_lr, momentum=0.9, weight_decay=1e-5, nesterov=True)
+        self.optimizer = optim.SGD(self.params, lr=optim_lr, momentum=0.9, weight_decay=5e-4, nesterov=True)
         # self.optimizer = optim.Adam(self.params, lr=optim_lr, betas=(0.5, 0.999))
         # self.optimizer = optim.AdamW(self.params, lr=optim_lr, betas=(0.5, 0.999), weight_decay=5e-4)
         self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=state.decay_epochs,
@@ -99,14 +99,19 @@ class Trainer(object):
         ckpt_int = state.checkpoint_interval
 
         data_t0 = time.time()
-
+        epoch_counter = 0
         for epoch, it, (rdata, rlabel) in self.prefetch_train_loader_iter():
             data_t = time.time() - data_t0
 
+            if (epoch_counter%state.decay_epochs == 0) and (epoch_counter != 0):
+                self.optimizer.param_groups[0]['weight_decay'] *= state.decay_factor
+            
             if it == 0:
+                epoch_counter += 1
                 self.scheduler.step()
 
-            if it == 0 and ((ckpt_int >= 0 and epoch % ckpt_int == 0) or epoch == 0):
+            if it == 0 and ((ckpt_int >= 0 and epoch % ck
+            pt_int == 0) or epoch == 0):
                 with torch.no_grad():
                     steps = self.get_steps()
                 self.save_results(steps=steps, subfolder='checkpoints/epoch{:04d}'.format(epoch))
