@@ -5,6 +5,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
+import torch_optimizer as th_optim
 from basics import task_loss, final_objective_loss, evaluate_steps
 from utils.distributed import broadcast_coalesced, all_reduce_coalesced
 from utils.io import save_results
@@ -55,6 +56,28 @@ class Trainer(object):
             logging.info("parameters broadcast done!")
 
         self.optimizer = optim.SGD(self.params, lr=optim_lr, momentum=0.9, weight_decay=5e-4, nesterov=True)
+        
+        # self.optimizer = th_optim.MADGRAD(self.params,
+        #                                     lr=optim_lr,
+        #                                     momentum=0.9,
+        #                                     weight_decay=5e-4,
+        #                                     eps=1e-6,)
+
+        # self.optimizer = th_optim.Ranger(self.params,
+        #                                 lr=optim_lr,
+        #                                 alpha=0.5,
+        #                                 k=6,
+        #                                 N_sma_threshhold=5,
+        #                                 betas=(.95, 0.999),
+        #                                 eps=1e-5,
+        #                                 weight_decay=5e-4)
+        
+        # self.optimizer = th_optim.DiffGrad(self.params,
+        #                                     lr= optim_lr,
+        #                                     betas=(0.9, 0.999),
+        #                                     eps=1e-8,
+        #                                     weight_decay=5e-4,)
+        
         # self.optimizer = optim.Adam(self.params, lr=optim_lr, betas=(0.5, 0.999))
         # self.optimizer = optim.AdamW(self.params, lr=optim_lr, betas=(0.5, 0.999), weight_decay=5e-4)
         self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=state.decay_epochs,
@@ -103,7 +126,8 @@ class Trainer(object):
         for epoch, it, (rdata, rlabel) in self.prefetch_train_loader_iter():
             data_t = time.time() - data_t0
 
-            if (epoch_counter%state.decay_epochs == 0) and (epoch_counter != 0):
+            if (epoch_counter%(2*state.decay_epochs) == 0) and (epoch_counter != 0):
+                print("Weight decay is multiplied at Epoch {}".format(epoch))
                 self.optimizer.param_groups[0]['weight_decay'] *= state.decay_factor
             
             if it == 0:
