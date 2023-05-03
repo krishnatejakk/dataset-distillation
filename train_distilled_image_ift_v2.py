@@ -9,6 +9,8 @@ import torch_optimizer as th_optim
 from basics import task_loss, final_objective_loss, evaluate_steps
 from utils.distributed import broadcast_coalesced, all_reduce_coalesced
 from utils.io import save_results
+from torch.utils.data import Subset, DataLoader
+from torch.utils.data.sampler import SubsetRandomSampler
 
 
 def permute_list(list):
@@ -84,8 +86,9 @@ class Trainer(object):
         
         # self.optimizer = optim.Adam(self.params, lr=optim_lr, betas=(0.5, 0.999))
         # self.optimizer = optim.AdamW(self.params, lr=optim_lr, betas=(0.5, 0.999), weight_decay=5e-4)
-        # self.scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(self.optimizer, T_0=100, T_mult=2, eta_min=0.01)
-        self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=state.decay_epochs, gamma=state.decay_factor)
+        self.scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(self.optimizer, T_0=100, T_mult=2, eta_min=0.01)
+        # self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=state.decay_epochs,
+        #                                            gamma=state.decay_factor)
         for p in self.params:
             p.grad = torch.zeros_like(p)
 
@@ -127,28 +130,25 @@ class Trainer(object):
 
         data_t0 = time.time()
         epoch_counter = 0
-        for epoch, it, (rdata, rlabel) in self.prefetch_train_loader_iter():
+        
+        for epoch in range(state.epochs):
+        #for epoch, it, (rdata, rlabel) in self.prefetch_train_loader_iter():
             data_t = time.time() - data_t0
 
-            if (epoch_counter%(2*state.decay_epochs) == 0) and (epoch_counter != 0):
+            if (epoch%(2*state.decay_epochs) == 0) and (epoch != 0):
                 print("Weight decay is multiplied at Epoch {}".format(epoch))
                 self.optimizer.param_groups[0]['weight_decay'] *= state.decay_factor
-            
-            if it == 0:
-                epoch_counter += 1
-                self.scheduler.step()
 
-            if it == 0 and ((ckpt_int >= 0 and epoch % ckpt_int == 0) or epoch == 0):
+            if (ckpt_int >= 0 and epoch % ckpt_int == 0) or (epoch == 0):
                 with torch.no_grad():
                     steps = self.get_steps()
                 self.save_results(steps=steps, subfolder='checkpoints/epoch{:04d}'.format(epoch))
-                evaluate_steps(state, steps, 'Begin of epoch {}'.format(epoch))
+                evaluate_steps(state, steps, 'Begin of epoch {}'.format(epoch), test_all=False)
 
-            do_log_this_iter = (it == 0) or (state.log_interval >= 0 and it % state.log_interval == 0)
+            do_log_this_iter = (state.log_interval >= 0 and epoch % state.log_interval == 0)
 
             self.optimizer.zero_grad()
-            # rdata, rlabel = rdata.to(device, non_blocking=True), rlabel.to(device, non_blocking=True)
-
+            
             if sample_n_nets == state.local_n_nets:
                 tmodels = self.models
             else:
@@ -184,14 +184,17 @@ class Trainer(object):
 
                 #Compute Hyper-Gradient using Implicit Differentiation
                 val_loss_item = 0
-        
-                # Loop over rdata, rlabel in batches of size 1000
-                for local_it in range(0, len(rdata), 1000):
-                    temp_rdata = rdata[local_it:local_it+1000]
-                    temp_rlabel = rlabel[local_it:local_it+1000]
-                    temp_rdata, temp_rlabel = temp_rdata.to(device, non_blocking=True), temp_rlabel.to(device, non_blocking=True)
+                # Create a subset of the training data
+                subset_idx = np.random.choice(len(state.train_loader.dataset), len(state.train_loader.dataset), replace=False)
+                # data_subset = state.train_loader.dataset.data[subset_idx]
+                data_subset = Subset(state.train_loader.dataset, subset_idx)
+                subset_loader = torch.utils.data.DataLoader(data_subset, batch_size=state.batch_size, shuffle=True, drop_last=False)
+                # state.train_loader.dataset.data = state.train_loader.dataset.data[subset_idx]
+
+                for it, (rdata, rlabel) in enumerate(subset_loader):
+                    rdata, rlabel = rdata.to(device, non_blocking=True), rlabel.to(device, non_blocking=True)
                     #Final Validation Loss
-                    val_loss = final_objective_loss(state, model(temp_rdata), temp_rlabel)*(1000/state.batch_size)
+                    val_loss = final_objective_loss(state, model(rdata), rlabel)*(state.batch_size/len(data_subset))
                     #Compute Gradient
                     if it == 0:
                         v = torch.autograd.grad(val_loss, model.parameters())
@@ -243,7 +246,10 @@ class Trainer(object):
             # Step the optimizer
             self.optimizer.step()
             self.optimizer.zero_grad()
-                
+            
+            #Step the scheduler
+            # self.scheduler.step()
+
             t = time.time() - t0
 
             if do_log_this_iter:
@@ -252,8 +258,8 @@ class Trainer(object):
                     'Epoch: {:4d} [{:7d}/{:7d} ({:2.0f}%)]\tLoss: {:.4f}\t'
                     'Data Time: {:.2f}s\tTrain Time: {:.2f}s'
                 ).format(
-                    epoch, it * train_loader.batch_size, len(train_loader.dataset),
-                    100. * it / len(train_loader), loss, data_t, t,
+                    epoch, len(data_subset), len(train_loader.dataset),
+                    100. * len(subset_loader) / len(train_loader), loss, data_t, t,
                 ))
                 if loss != loss:  # nan
                     raise RuntimeError('loss became NaN')

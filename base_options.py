@@ -206,15 +206,16 @@ class BaseOptions(object):
         action_registry = parser._registries['action']
         for name, action_cls in action_registry.items():
             action_registry[name] = get_unique_action_cls(action_cls)
-
         parser.add_argument('--batch_size', type=pos_int, default=5120,
                             help='input batch size for training (default: 1024)')
-        parser.add_argument('--test_batch_size', type=pos_int, default=5120,
+        parser.add_argument('--test_batch_size', type=pos_int, default=1024,
                             help='input batch size for testing (default: 1024)')
         parser.add_argument('--test_niter', type=pos_int, default=1,
                             help='max number of batches to test (default: 1)')
         parser.add_argument('--epochs', type=pos_int, default=400, metavar='N',
                             help='number of total epochs to train (default: 400)')
+        parser.add_argument('--weight_decay', type=comp(float, 'ge', 0), default=0.0005, metavar='N',
+                            help='weight decay (default: 0.0005)')
         parser.add_argument('--decay_epochs', type=pos_int, default=50, metavar='N',
                             help='period of weight decay (default: 40)')
         parser.add_argument('--decay_factor', type=pos_float, default=0.5, metavar='N',
@@ -264,7 +265,7 @@ class BaseOptions(object):
         parser.add_argument('--distill_epochs', type=pos_int, default=5,
                             help='how many times to repeat all steps 1, 2, 3, 1, 2, 3, ...')
         parser.add_argument('--evaluate_epochs', type=pos_int, default=5, help='how many times to evaluate')
-        parser.add_argument('--neumann_terms_cnt', type=pos_int, default=5,
+        parser.add_argument('--neumann_terms_cnt', type=pos_int, default=15,
                             help='number of Neumann terms to use in the Neumann series approximation')
         parser.add_argument('--n_nets', type=int, default=1,
                             help='# random nets')
