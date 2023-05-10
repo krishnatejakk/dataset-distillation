@@ -1,29 +1,7 @@
 # Dataset Distillation
+The base code-structure for this project is adapted from the following [github repository](https://github.com/ssnl/dataset-distillation).
 
-<p align="center"><img src='docs/teaser.png' width=800></p>
-
-[Project Page](https://ssnl.github.io/dataset_distillation/) |  [Paper](https://arxiv.org/pdf/1811.10959.pdf)
-
-
-We provide a [PyTorch](https://pytorch.org) implementation of [Dataset Distillation](https://ssnl.github.io/dataset_distillation). We distill the knowledge of tens of thousands of images into a few synthetic training images called *distilled images*.
-
-(a): On MNIST, 10 distilled images can train a standard LeNet with a fixed initialization to 94% test accuracy (compared to 99% when fully trained).
-On CIFAR10, 100 distilled images can train a deep network with fixed initialization to 54% test accuracy (compared to 80% when fully trained).
-
-(b): We can distill the domain difference between two SVHN and MNIST into 100 distilled images. These images can be used to quickly fine-tune networks trained for SVHN to achieve a high accuracy on MNIST.
-
-(c): Our method can be used to create adversarial attack images. If well-optimized networks retrained with these images for one single
-gradient step, they will catastrophically misclassify a particular targeted class.
-
-<!-- **Dataset Distillation**: [Project](https://ssnl.github.io/dataset_distillation), [Paper](https://arxiv.org/pdf/1811.10959.pdf). -->
-
-
-Dataset Distillation<br>
-[Tongzhou Wang](https://ssnl.github.io/), [Jun-Yan Zhu](https://people.eecs.berkeley.edu/~junyanz/), [Antonio Torralba](https://web.mit.edu/torralba/www/), [Alexei A. Efros](https://people.eecs.berkeley.edu/~efros).<br>
-arXiv, 2018.<br>
-Facebook AI Research, MIT CSAIL, UC Berkeley
-
-The code is written by [Tongzhou Wang](https://ssnl.github.io/) and [Jun-Yan Zhu](https://github.com/junyanz).
+We provide a [PyTorch](https://pytorch.org) implementation of ZEN. We distill the knowledge of tens of thousands of images into a few synthetic training images called *distilled images*.
 
 ## Prerequisites
 
@@ -38,6 +16,8 @@ The code is written by [Tongzhou Wang](https://ssnl.github.io/) and [Jun-Yan Zhu
 - ``matplotlib``
 - ``pyyaml``
 - ``tqdm``
+- ``pillow``
+- ``torch_optimizer``
 
 You may install `PyTorch` (`torch` package above) using any suggested method for your environment [here](https://pytorch.org/get-started/locally/).
 
@@ -70,39 +50,14 @@ The default options are designed for random initializations. In each training it
 
     `AlexCifarNet` is an architecture adapted from [the `cuda-convnet` project](https://code.google.com/p/cuda-convnet2/) by Alex Krizhevsky.
 
-#### Fixed known initialization
+The code for our proposed dataset distillation approach is provided in three separate files:
 
-Alternatively, the distilled images can be optimized for a particular initialization, allowing for high performance using even fewer images (e.g., 10 images trains an initialized LeNet to 94% test accuracy).
+1. `main.py`: This file can be used to run the original dataset distillation approach that uses gradient unrolling for bilevel optimization. However, this approach is computationally expensive.
 
-+ `MNIST`:
+2. `main_ift.py`: This file contains our implementation of the dataset distillation approach, which solves the bilevel optimization using Neumann series approximation. This approach is computationally scalable and efficient.
 
-    ```sh
-    python main.py --mode distill_basic --dataset MNIST --arch LeNet \
-        --distill_steps 1 --train_nets_type known_init --n_nets 1 \
-        --test_nets_type same_as_train
-    ```
+3. `main_zen.py`: This file contains the code for the ZEN approach, which outperforms Dataset Distillation and Dataset Condensation approaches for cross-architecture generalizable and effective dataset distillation.
 
-+ `Cifar10`:
+In addition to the three files mentioned earlier, we also provide `run_mnist.py` and `run_cifar100.py` files that users can utilize to run our proposed approach ZEN and the DD baseline approach. 
 
-    ```sh
-    python main.py --mode distill_basic --dataset Cifar10 --arch AlexCifarNet \
-        --distill_lr 0.001 --train_nets_type known_init --n_nets 1 \
-        --test_nets_type same_as_train
-    ```
-
-## Citation
-
-If you find this useful for your research, please cite the following paper.
-
-```
-@article{wang2018dataset,
-  title={Dataset Distillation},
-  author={Wang, Tongzhou and Zhu, Jun-Yan and Torralba, Antonio and Efros, Alexei A},
-  journal={arXiv preprint arXiv:1811.10959},
-  year={2018}
-}
-```
-
-## Acknowledgements
-
-This work was supported in part by NSF 1524817 on Advancing Visual Recognition with Feature Visualizations, NSF IIS-1633310, and Berkeley Deep Drive.
+We note that we ran the Dataset Condensation baseline using the original code provided in the following [GitHub repository](https://github.com/VICO-UoE/DatasetCondensation).
