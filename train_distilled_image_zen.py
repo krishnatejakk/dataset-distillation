@@ -240,7 +240,7 @@ class Trainer(object):
                     #Final Validation Loss
                     val_loss = final_objective_loss(state, sel_model(temp_rdata), temp_rlabel)*(len(temp_rdata)/len(rdata))
                     #Compute Gradient
-                    if it == 0:
+                    if local_it == 0:
                         v = torch.autograd.grad(val_loss, sel_model.parameters())
                     else:
                         v = tuple([v[i] + torch.autograd.grad(val_loss, sel_model.parameters())[i] for i in range(len(v))])
