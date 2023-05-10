@@ -15,4 +15,4 @@
 
 from subprocess import call
 
-call(["python", "main_ift.py", "--mode", "distill_basic", "--dataset", "Cifar10", "--arch", "AlexCifarNet", "--distill_lr", "0.02", "--batch_size", "5120", "--test_batch_size", "1024", "--epochs", "1000", "--weight_decay", "5e-4",  "--log_interval", "100"])
+call(["python", "main_ift.py", "--mode", "distill_basic", "--dataset", "Cifar10", "--arch", "AlexCifarNet", "--distill_lr", "0.01", "--lr", "0.1", "--batch_size", "5120", "--test_batch_size", "1024", "--epochs", "1000",  "--distill_epochs", "3", "--evaluate_epochs", "20", "--weight_decay", "0", "--neumann_terms_cnt", "20",  "--log_interval", "100"])

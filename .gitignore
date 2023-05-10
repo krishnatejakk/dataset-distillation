@@ -28,4 +28,4 @@ models/
 .DS_Store
 
 .gdb_history
-.txt
+*.txt

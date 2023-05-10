@@ -70,7 +70,6 @@ def clone_tuple(tensors, requires_grad=None):
 # ReparamModule
 ##############################################################################
 
-
 class PatchModules(type):
     def __call__(cls, state, *args, **kwargs):
         r"""Called when you call ReparamModule(...) """

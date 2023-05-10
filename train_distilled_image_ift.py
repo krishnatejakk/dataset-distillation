@@ -9,6 +9,8 @@ import torch_optimizer as th_optim
 from basics import task_loss, final_objective_loss, evaluate_steps
 from utils.distributed import broadcast_coalesced, all_reduce_coalesced
 from utils.io import save_results
+import datasets
+from collections import defaultdict
 
 
 def permute_list(list):
@@ -35,6 +37,7 @@ class Trainer(object):
         self.labels = []
         distill_label = torch.arange(state.num_classes, dtype=torch.long, device=state.device) \
                              .repeat(state.distilled_images_per_class_per_step, 1)  # [[0, 1, 2, ...], [0, 1, 2, ...]]
+        
         distill_label = distill_label.t().reshape(-1)  # [0, 0, ..., 1, 1, ...]
         for _ in range(self.num_data_steps):
             self.labels.append(distill_label)
@@ -42,9 +45,34 @@ class Trainer(object):
 
         # data
         self.data = []
-        for _ in range(self.num_data_steps):
+        train_dataset = datasets.get_dataset(state, 'train')
+
+        # Initialize the labels_to_idx dictionary
+        labels_to_idx = defaultdict(list)
+        for idx, (_, label) in enumerate(train_dataset):
+            labels_to_idx[label].append(idx)
+
+        for step in range(self.num_data_steps):
             distill_data = torch.randn(self.num_per_step, state.nc, state.input_size, state.input_size,
                                        device=state.device, requires_grad=True)
+            distill_label = self.labels[step]
+            #Assign distll_data to real image data corresponding to the labels
+            for idx, label in enumerate(distill_label):
+                # Get the list of indices corresponding to the label
+                idx_list = labels_to_idx[label.item()]
+                # Choose a random index from the list
+                rand_idx = np.random.choice(idx_list)
+                # Get the image corresponding to the index
+                img = train_dataset[rand_idx][0]
+                # Convert the image to a tensor
+                img = img.to(state.device)
+                # Reshape the image
+                img = img.reshape(1, state.nc, state.input_size, state.input_size)
+                # Assign the image to the distill_data tensor while allowing gradients
+                distill_data.data[idx] = img.detach().data
+                # Remove the selected index from the dictionary
+                idx_list.remove(rand_idx)
+            #set distil data to have requi
             self.data.append(distill_data)
             self.params.append(distill_data)
 
@@ -55,11 +83,11 @@ class Trainer(object):
             broadcast_coalesced(self.params)
             logging.info("parameters broadcast done!")
 
-        self.optimizer = optim.SGD(self.params, 
-                                   lr=optim_lr, 
-                                   momentum=0.9, 
-                                   weight_decay=state.weight_decay, 
-                                   nesterov=True)
+        # self.optimizer = optim.SGD(self.params, 
+        #                            lr=optim_lr, 
+        #                            momentum=0.9, 
+        #                            weight_decay=state.weight_decay, 
+        #                            nesterov=True)
         
         # self.optimizer = th_optim.MADGRAD(self.params,
         #                                     lr=optim_lr,
@@ -67,14 +95,14 @@ class Trainer(object):
         #                                     weight_decay=5e-4,
         #                                     eps=1e-6,)
 
-        # self.optimizer = th_optim.Ranger(self.params,
-        #                                 lr=optim_lr,
-        #                                 alpha=0.5,
-        #                                 k=6,
-        #                                 N_sma_threshhold=5,
-        #                                 betas=(.95, 0.999),
-        #                                 eps=1e-5,
-        #                                 weight_decay=state.weight_decay,)
+        self.optimizer = th_optim.Ranger(self.params,
+                                        lr=optim_lr,
+                                        alpha=0.5,
+                                        k=6,
+                                        N_sma_threshhold=5,
+                                        betas=(.95, 0.999),
+                                        eps=1e-5,
+                                        weight_decay=state.weight_decay,)
         
         # self.optimizer = th_optim.DiffGrad(self.params,
         #                                     lr= optim_lr,
@@ -84,7 +112,7 @@ class Trainer(object):
         
         # self.optimizer = optim.Adam(self.params, lr=optim_lr, betas=(0.5, 0.999))
         # self.optimizer = optim.AdamW(self.params, lr=optim_lr, betas=(0.5, 0.999), weight_decay=5e-4)
-        # self.scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(self.optimizer, T_0=100, T_mult=2, eta_min=0.01)
+        # self.scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(self.optimizer, T_0=100, T_mult=2, eta_min=0.001)
         self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=state.decay_epochs, gamma=state.decay_factor)
         for p in self.params:
             p.grad = torch.zeros_like(p)
@@ -165,11 +193,23 @@ class Trainer(object):
                 if state.train_nets_type == 'unknown_init':
                     model.reset(state)
                 model.train()
+                #instantiate adam optimizer for each model
+                # model_optimizer = optim.SGD(model.parameters(), lr=state.distill_lr, momentum=0.9, weight_decay=0)
+                # model_optimizer = th_optim.Ranger(model.parameters(),
+                #                         lr=state.distill_lr,
+                #                         alpha=0.5,
+                #                         k=6,
+                #                         N_sma_threshhold=5,
+                #                         betas=(.95, 0.999),
+                #                         eps=1e-5,
+                #                         weight_decay=0,)
+                # model_optimizer = optim.Adam(model.parameters(), lr=state.distill_lr, betas=(0.9, 0.999))
                 for step_i, (data, label) in enumerate(steps):
+                    # model_optimizer.zero_grad()
                     output = model(data)
                     loss = task_loss(state, output, label)
                     loss.backward()
-
+                    # model_optimizer.step()
                     with torch.no_grad():
                         for param in model.parameters():
                             param.sub_(state.distill_lr * param.grad)
@@ -186,12 +226,12 @@ class Trainer(object):
                 val_loss_item = 0
         
                 # Loop over rdata, rlabel in batches of size 1000
-                for local_it in range(0, len(rdata), 1000):
-                    temp_rdata = rdata[local_it:local_it+1000]
-                    temp_rlabel = rlabel[local_it:local_it+1000]
+                for local_it in range(0, len(rdata), 1024):
+                    temp_rdata = rdata[local_it:local_it+1024]
+                    temp_rlabel = rlabel[local_it:local_it+1024]
                     temp_rdata, temp_rlabel = temp_rdata.to(device, non_blocking=True), temp_rlabel.to(device, non_blocking=True)
                     #Final Validation Loss
-                    val_loss = final_objective_loss(state, model(temp_rdata), temp_rlabel)*(1000/state.batch_size)
+                    val_loss = final_objective_loss(state, model(temp_rdata), temp_rlabel)*(len(temp_rdata)/len(rdata))
                     #Compute Gradient
                     if it == 0:
                         v = torch.autograd.grad(val_loss, model.parameters())

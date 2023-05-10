@@ -197,39 +197,86 @@ def _desc_step(state, steps, i):
 
 # See NOTE [ Evaluation Result Format ] for output format
 def format_stepwise_results(state, steps, info, res):
-    accs = res[1] * 100
-    losses = res[2]
-    acc_mus = accs.mean(1)
-    acc_stds = accs.std(1, unbiased=True)
-    loss_mus = losses.mean(1)
-    loss_stds = losses.std(1, unbiased=True)
-
     def format_into_line(*fields, align='>'):
         single_fmt = '{{:{}24}}'.format(align)
         return ' '.join(single_fmt.format(f) for f in fields)
+    if state.local_n_nets == res[1].shape[1]:
+        accs = res[1] * 100
+        losses = res[2]
+        acc_mus = accs.mean(1)
+        acc_stds = accs.std(1, unbiased=True)
+        loss_mus = losses.mean(1)
+        loss_stds = losses.std(1, unbiased=True) 
+        msgs = [format_into_line('STEP', 'ACCURACY', 'LOSS', align='^')]
+        acc_fmt = '{{: >8.4f}} {}{{: >5.2f}}%'.format(pm)
+        loss_fmt = '{{: >8.4f}} {}{{: >5.2f}}'.format(pm)
+        tested_steps = set(res[0].tolist())
+        for at_step, acc_mu, acc_std, loss_mu, loss_std in zip(res[0], acc_mus, acc_stds, loss_mus, loss_stds):
+            if state.mode == 'distill_attack':
+                msgs.append('-' * 74)
 
-    msgs = [format_into_line('STEP', 'ACCURACY', 'LOSS', align='^')]
-    acc_fmt = '{{: >8.4f}} {}{{: >5.2f}}%'.format(pm)
-    loss_fmt = '{{: >8.4f}} {}{{: >5.2f}}'.format(pm)
-    tested_steps = set(res[0].tolist())
-    for at_step, acc_mu, acc_std, loss_mu, loss_std in zip(res[0], acc_mus, acc_stds, loss_mus, loss_stds):
-        if state.mode == 'distill_attack':
-            msgs.append('-' * 74)
+            desc = _desc_step(state, steps, at_step)
+            loss_str = loss_fmt.format(loss_mu, loss_std)
+            acc_mu = acc_mu.view(-1)  # into vector
+            acc_std = acc_std.view(-1)  # into vector
+            acc_str = acc_fmt.format(acc_mu[0], acc_std[0])
+            msgs.append(format_into_line(desc, acc_str, loss_str))
 
-        desc = _desc_step(state, steps, at_step)
-        loss_str = loss_fmt.format(loss_mu, loss_std)
-        acc_mu = acc_mu.view(-1)  # into vector
-        acc_std = acc_std.view(-1)  # into vector
-        acc_str = acc_fmt.format(acc_mu[0], acc_std[0])
-        msgs.append(format_into_line(desc, acc_str, loss_str))
+            if state.mode == 'distill_attack':
+                msgs.append(format_into_line('acc wrt modified labels', acc_fmt.format(acc_mu[1], acc_std[1])))
+                for cls_idx, (mu, std) in enumerate(zip(acc_mu[2:-1], acc_std[2:-1])):
+                    msgs.append(format_into_line('class {:>2} acc'.format(cls_idx), acc_fmt.format(mu, std)))
+                msgs.append(format_into_line('{:>2} predicted as {:>2}'.format(state.attack_class, state.target_class),
+                                            acc_fmt.format(acc_mu[-1], acc_std[-1])))
+    else:
+        tmp_list = ['STEP']
+        model_names = [type(model).__name__ for model in state.models[0:res[1].shape[1]:state.local_n_nets]]
+        for model_name in model_names:
+            tmp_list.append('ACCURACY_' + model_name)
+            tmp_list.append('LOSS_' + model_name)
+        msgs = [format_into_line(*tmp_list, align='^')]
+        acc_fmt = '{{: >8.4f}} {}{{: >5.2f}}%'.format(pm)
+        loss_fmt = '{{: >8.4f}} {}{{: >5.2f}}'.format(pm)
+        accs_means = []
+        accs_stds = []
+        losses_means = []
+        losses_stds = []
+        for idx in range(len(model_names)):
+            # model_name = type(model).__name__
+            subset_accs =  res[1][:, idx * state.local_n_nets : (idx+1)*state.local_n_nets]*100
+            subset_losses = res[2][:, idx * state.local_n_nets : (idx+1)*state.local_n_nets]
+            subset_acc_mus = subset_accs.mean(1)
+            subset_acc_stds = subset_accs.std(1, unbiased=True)
+            subset_loss_mus = subset_losses.mean(1)
+            subset_loss_stds = subset_losses.std(1, unbiased=True)
+            accs_means.append(subset_acc_mus)
+            accs_stds.append(subset_acc_stds)
+            losses_means.append(subset_loss_mus)
+            losses_stds.append(subset_loss_stds)
+    
+        for at_step in range(res[0].shape[0]):
+            if state.mode == 'distill_attack':
+                msgs.append('-' * 74)
 
-        if state.mode == 'distill_attack':
-            msgs.append(format_into_line('acc wrt modified labels', acc_fmt.format(acc_mu[1], acc_std[1])))
-            for cls_idx, (mu, std) in enumerate(zip(acc_mu[2:-1], acc_std[2:-1])):
-                msgs.append(format_into_line('class {:>2} acc'.format(cls_idx), acc_fmt.format(mu, std)))
-            msgs.append(format_into_line('{:>2} predicted as {:>2}'.format(state.attack_class, state.target_class),
-                                         acc_fmt.format(acc_mu[-1], acc_std[-1])))
+            desc = _desc_step(state, steps, at_step)
+            tmp_str = [desc]
+            for idx in range(len(accs_means)):
+                loss_mu = losses_means[idx][at_step].view(-1)
+                loss_std = losses_stds[idx][at_step].view(-1)
+                loss_str = loss_fmt.format(loss_mu[0], loss_std[0])
+                acc_mu = accs_means[idx][at_step].view(-1)  # into vector
+                acc_std = accs_stds[idx][at_step].view(-1)  # into vector
+                acc_str = acc_fmt.format(acc_mu[0], acc_std[0])
+                tmp_str.append(acc_str)
+                tmp_str.append(loss_str)
+            msgs.append(format_into_line(*tmp_str))
 
+            if state.mode == 'distill_attack':
+                msgs.append(format_into_line('acc wrt modified labels', acc_fmt.format(acc_mu[1], acc_std[1])))
+                for cls_idx, (mu, std) in enumerate(zip(acc_mu[2:-1], acc_std[2:-1])):
+                    msgs.append(format_into_line('class {:>2} acc'.format(cls_idx), acc_fmt.format(mu, std)))
+                msgs.append(format_into_line('{:>2} predicted as {:>2}'.format(state.attack_class, state.target_class),
+                                            acc_fmt.format(acc_mu[-1], acc_std[-1])))
     return '{} test results:\n{}'.format(info, '\n'.join(('\t' + m) for m in msgs))
 
 

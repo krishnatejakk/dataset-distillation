@@ -1,5 +1,6 @@
 import logging
 import time
+import math
 import copy
 import numpy as np
 import torch
@@ -9,8 +10,8 @@ import torch_optimizer as th_optim
 from basics import task_loss, final_objective_loss, evaluate_steps
 from utils.distributed import broadcast_coalesced, all_reduce_coalesced
 from utils.io import save_results
-from torch.utils.data import Subset, DataLoader
-from torch.utils.data.sampler import SubsetRandomSampler
+import datasets
+from collections import defaultdict
 
 
 def permute_list(list):
@@ -37,6 +38,7 @@ class Trainer(object):
         self.labels = []
         distill_label = torch.arange(state.num_classes, dtype=torch.long, device=state.device) \
                              .repeat(state.distilled_images_per_class_per_step, 1)  # [[0, 1, 2, ...], [0, 1, 2, ...]]
+        
         distill_label = distill_label.t().reshape(-1)  # [0, 0, ..., 1, 1, ...]
         for _ in range(self.num_data_steps):
             self.labels.append(distill_label)
@@ -44,9 +46,35 @@ class Trainer(object):
 
         # data
         self.data = []
-        for _ in range(self.num_data_steps):
+        train_dataset = datasets.get_dataset(state, 'train')
+
+        # Initialize the labels_to_idx dictionary
+        labels_to_idx = defaultdict(list)
+        for idx, (_, label) in enumerate(train_dataset):
+            labels_to_idx[label].append(idx)
+
+        for step in range(self.num_data_steps):
             distill_data = torch.randn(self.num_per_step, state.nc, state.input_size, state.input_size,
                                        device=state.device, requires_grad=True)
+            distill_label = self.labels[step]
+            if state.init_image == 'real':
+                #Assign distll_data to real image data corresponding to the labels
+                for idx, label in enumerate(distill_label):
+                    # Get the list of indices corresponding to the label
+                    idx_list = labels_to_idx[label.item()]
+                    # Choose a random index from the list
+                    rand_idx = np.random.choice(idx_list)
+                    # Get the image corresponding to the index
+                    img = train_dataset[rand_idx][0]
+                    # Convert the image to a tensor
+                    img = img.to(state.device)
+                    # Reshape the image
+                    img = img.reshape(1, state.nc, state.input_size, state.input_size)
+                    # Assign the image to the distill_data tensor while allowing gradients
+                    distill_data.data[idx] = img.detach().data
+                    # Remove the selected index from the dictionary
+                    idx_list.remove(rand_idx)
+            #set distil data to have requi
             self.data.append(distill_data)
             self.params.append(distill_data)
 
@@ -57,11 +85,11 @@ class Trainer(object):
             broadcast_coalesced(self.params)
             logging.info("parameters broadcast done!")
 
-        self.optimizer = optim.SGD(self.params, 
-                                   lr=optim_lr, 
-                                   momentum=0.9, 
-                                   weight_decay=state.weight_decay, 
-                                   nesterov=True)
+        # self.optimizer = optim.SGD(self.params, 
+        #                            lr=optim_lr, 
+        #                            momentum=0.9, 
+        #                            weight_decay=state.weight_decay, 
+        #                            nesterov=True)
         
         # self.optimizer = th_optim.MADGRAD(self.params,
         #                                     lr=optim_lr,
@@ -69,14 +97,14 @@ class Trainer(object):
         #                                     weight_decay=5e-4,
         #                                     eps=1e-6,)
 
-        # self.optimizer = th_optim.Ranger(self.params,
-        #                                 lr=optim_lr,
-        #                                 alpha=0.5,
-        #                                 k=6,
-        #                                 N_sma_threshhold=5,
-        #                                 betas=(.95, 0.999),
-        #                                 eps=1e-5,
-        #                                 weight_decay=state.weight_decay,)
+        self.optimizer = th_optim.Ranger(self.params,
+                                        lr=optim_lr,
+                                        alpha=0.5,
+                                        k=6,
+                                        N_sma_threshhold=5,
+                                        betas=(.95, 0.999),
+                                        eps=1e-5,
+                                        weight_decay=state.weight_decay,)
         
         # self.optimizer = th_optim.DiffGrad(self.params,
         #                                     lr= optim_lr,
@@ -86,9 +114,8 @@ class Trainer(object):
         
         # self.optimizer = optim.Adam(self.params, lr=optim_lr, betas=(0.5, 0.999))
         # self.optimizer = optim.AdamW(self.params, lr=optim_lr, betas=(0.5, 0.999), weight_decay=5e-4)
-        self.scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(self.optimizer, T_0=100, T_mult=2, eta_min=0.01)
-        # self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=state.decay_epochs,
-        #                                            gamma=state.decay_factor)
+        # self.scheduler = optim.lr_scheduler.CosineAnnealingWarmRestarts(self.optimizer, T_0=100, T_mult=2, eta_min=0.001)
+        self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=state.decay_epochs, gamma=state.decay_factor)
         for p in self.params:
             p.grad = torch.zeros_like(p)
 
@@ -130,25 +157,28 @@ class Trainer(object):
 
         data_t0 = time.time()
         epoch_counter = 0
-        
-        for epoch in range(state.epochs):
-        #for epoch, it, (rdata, rlabel) in self.prefetch_train_loader_iter():
+        for epoch, it, (rdata, rlabel) in self.prefetch_train_loader_iter():
             data_t = time.time() - data_t0
 
-            if (epoch%(2*state.decay_epochs) == 0) and (epoch != 0):
+            if (epoch_counter%(2*state.decay_epochs) == 0) and (epoch_counter != 0):
                 print("Weight decay is multiplied at Epoch {}".format(epoch))
                 self.optimizer.param_groups[0]['weight_decay'] *= state.decay_factor
+            
+            if it == 0:
+                epoch_counter += 1
+                self.scheduler.step()
 
-            if (ckpt_int >= 0 and epoch % ckpt_int == 0) or (epoch == 0):
+            if it == 0 and ((ckpt_int >= 0 and epoch % ckpt_int == 0) or epoch == 0):
                 with torch.no_grad():
                     steps = self.get_steps()
                 self.save_results(steps=steps, subfolder='checkpoints/epoch{:04d}'.format(epoch))
-                evaluate_steps(state, steps, 'Begin of epoch {}'.format(epoch), test_all=False)
+                evaluate_steps(state, steps, 'Begin of epoch {}'.format(epoch))
 
-            do_log_this_iter = (state.log_interval >= 0 and epoch % state.log_interval == 0)
+            do_log_this_iter = (it == 0) or (state.log_interval >= 0 and it % state.log_interval == 0)
 
             self.optimizer.zero_grad()
-            
+            # rdata, rlabel = rdata.to(device, non_blocking=True), rlabel.to(device, non_blocking=True)
+
             if sample_n_nets == state.local_n_nets:
                 tmodels = self.models
             else:
@@ -161,55 +191,69 @@ class Trainer(object):
 
             # activate everything needed to run on this process
             grad_infos = []
-            for model in tmodels:
-                if state.train_nets_type == 'unknown_init':
-                    model.reset(state)
-                model.train()
-                for step_i, (data, label) in enumerate(steps):
-                    output = model(data)
-                    loss = task_loss(state, output, label)
-                    loss.backward()
+            for net_idx in range(sample_n_nets):
+                tmodels = self.models[net_idx : len(self.models): state.local_n_nets]
+                sel_model = None
+                prev_loss = -math.inf
+                for model in tmodels:
+                    if state.train_nets_type == 'unknown_init':
+                        model.reset(state)
+                    model.train()
+      
+                    for step_i, (data, label) in enumerate(steps):
+                        # model_optimizer.zero_grad()
+                        output = model(data)
+                        loss = task_loss(state, output, label)
+                        loss.backward()
+                        # model_optimizer.step()
+                        with torch.no_grad():
+                            for param in model.parameters():
+                                param.sub_(state.distill_lr * param.grad)
+                                param.grad.zero_()
 
-                    with torch.no_grad():
-                        for param in model.parameters():
-                            param.sub_(state.distill_lr * param.grad)
-                            param.grad.zero_()
+                    #Final Training Loss
+                    loss = 0
+                    cnt = len(self.data)
+                    for x in zip(self.data, self.labels):
+                        output = model(x[0])
+                        loss += task_loss(state, output, x[1])/cnt
 
+                    if prev_loss < loss:
+                        sel_model = model
+                        prev_loss = loss
+               
                 #Final Training Loss
                 loss = 0
                 cnt = len(self.data)
                 for x in zip(self.data, self.labels):
-                    output = model(x[0])
+                    output = sel_model(x[0])
                     loss += task_loss(state, output, x[1])/cnt
-
+                
                 #Compute Hyper-Gradient using Implicit Differentiation
                 val_loss_item = 0
-                # Create a subset of the training data
-                subset_idx = np.random.choice(len(state.train_loader.dataset), len(state.train_loader.dataset), replace=False)
-                # data_subset = state.train_loader.dataset.data[subset_idx]
-                data_subset = Subset(state.train_loader.dataset, subset_idx)
-                subset_loader = torch.utils.data.DataLoader(data_subset, batch_size=state.batch_size, shuffle=True, drop_last=False)
-                # state.train_loader.dataset.data = state.train_loader.dataset.data[subset_idx]
-
-                for it, (rdata, rlabel) in enumerate(subset_loader):
-                    rdata, rlabel = rdata.to(device, non_blocking=True), rlabel.to(device, non_blocking=True)
+        
+                # Loop over rdata, rlabel in batches of size 1000
+                for local_it in range(0, len(rdata), 1024):
+                    temp_rdata = rdata[local_it:local_it+1024]
+                    temp_rlabel = rlabel[local_it:local_it+1024]
+                    temp_rdata, temp_rlabel = temp_rdata.to(device, non_blocking=True), temp_rlabel.to(device, non_blocking=True)
                     #Final Validation Loss
-                    val_loss = final_objective_loss(state, model(rdata), rlabel)*(state.batch_size/len(data_subset))
+                    val_loss = final_objective_loss(state, sel_model(temp_rdata), temp_rlabel)*(len(temp_rdata)/len(rdata))
                     #Compute Gradient
                     if it == 0:
-                        v = torch.autograd.grad(val_loss, model.parameters())
+                        v = torch.autograd.grad(val_loss, sel_model.parameters())
                     else:
-                        v = tuple([v[i] + torch.autograd.grad(val_loss, model.parameters())[i] for i in range(len(v))])
+                        v = tuple([v[i] + torch.autograd.grad(val_loss, sel_model.parameters())[i] for i in range(len(v))])
                     val_loss_item += val_loss.detach()
                     
-                f = torch.autograd.grad(loss, model.parameters(), retain_graph=True, create_graph=True)
+                f = torch.autograd.grad(loss, sel_model.parameters(), retain_graph=True, create_graph=True)
 
                 #Compute Approx. Inverse Hessian Vector Product
                 p  = list(copy.deepcopy(v))
                 
                 for _ in range(state.neumann_terms_cnt):
                     old_v = list(v)
-                    temp1 = torch.autograd.grad(f, model.parameters(), retain_graph=True, grad_outputs=v)
+                    temp1 = torch.autograd.grad(f, sel_model.parameters(), retain_graph=True, grad_outputs=v)
                     temp1 = list(temp1)
                     v = list(v)
                     for k in range(len(v)):
@@ -246,10 +290,7 @@ class Trainer(object):
             # Step the optimizer
             self.optimizer.step()
             self.optimizer.zero_grad()
-            
-            #Step the scheduler
-            # self.scheduler.step()
-
+                
             t = time.time() - t0
 
             if do_log_this_iter:
@@ -258,8 +299,8 @@ class Trainer(object):
                     'Epoch: {:4d} [{:7d}/{:7d} ({:2.0f}%)]\tLoss: {:.4f}\t'
                     'Data Time: {:.2f}s\tTrain Time: {:.2f}s'
                 ).format(
-                    epoch, len(data_subset), len(train_loader.dataset),
-                    100. * len(subset_loader) / len(train_loader), loss, data_t, t,
+                    epoch, it * train_loader.batch_size, len(train_loader.dataset),
+                    100. * it / len(train_loader), loss, data_t, t,
                 ))
                 if loss != loss:  # nan
                     raise RuntimeError('loss became NaN')
