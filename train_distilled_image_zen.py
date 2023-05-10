@@ -85,19 +85,14 @@ class Trainer(object):
             broadcast_coalesced(self.params)
             logging.info("parameters broadcast done!")
 
-        # self.optimizer = optim.SGD(self.params, 
-        #                            lr=optim_lr, 
-        #                            momentum=0.9, 
-        #                            weight_decay=state.weight_decay, 
-        #                            nesterov=True)
-        
-        # self.optimizer = th_optim.MADGRAD(self.params,
-        #                                     lr=optim_lr,
-        #                                     momentum=0.9,
-        #                                     weight_decay=5e-4,
-        #                                     eps=1e-6,)
-
-        self.optimizer = th_optim.Ranger(self.params,
+        if state.optimizer == 'sgd':
+            self.optimizer = optim.SGD(self.params, 
+                                   lr=optim_lr, 
+                                   momentum=0.9, 
+                                   weight_decay=state.weight_decay, 
+                                   nesterov=True)
+        else:
+            self.optimizer = th_optim.Ranger(self.params,
                                         lr=optim_lr,
                                         alpha=0.5,
                                         k=6,
@@ -105,6 +100,13 @@ class Trainer(object):
                                         betas=(.95, 0.999),
                                         eps=1e-5,
                                         weight_decay=state.weight_decay,)
+        
+        
+        # self.optimizer = th_optim.MADGRAD(self.params,
+        #                                     lr=optim_lr,
+        #                                     momentum=0.9,
+        #                                     weight_decay=5e-4,
+        #                                     eps=1e-6,)
         
         # self.optimizer = th_optim.DiffGrad(self.params,
         #                                     lr= optim_lr,

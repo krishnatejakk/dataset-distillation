@@ -56,22 +56,23 @@ class Trainer(object):
             distill_data = torch.randn(self.num_per_step, state.nc, state.input_size, state.input_size,
                                        device=state.device, requires_grad=True)
             distill_label = self.labels[step]
-            #Assign distll_data to real image data corresponding to the labels
-            for idx, label in enumerate(distill_label):
-                # Get the list of indices corresponding to the label
-                idx_list = labels_to_idx[label.item()]
-                # Choose a random index from the list
-                rand_idx = np.random.choice(idx_list)
-                # Get the image corresponding to the index
-                img = train_dataset[rand_idx][0]
-                # Convert the image to a tensor
-                img = img.to(state.device)
-                # Reshape the image
-                img = img.reshape(1, state.nc, state.input_size, state.input_size)
-                # Assign the image to the distill_data tensor while allowing gradients
-                distill_data.data[idx] = img.detach().data
-                # Remove the selected index from the dictionary
-                idx_list.remove(rand_idx)
+            if state.init_image == 'real':
+                #Assign distll_data to real image data corresponding to the labels
+                for idx, label in enumerate(distill_label):
+                    # Get the list of indices corresponding to the label
+                    idx_list = labels_to_idx[label.item()]
+                    # Choose a random index from the list
+                    rand_idx = np.random.choice(idx_list)
+                    # Get the image corresponding to the index
+                    img = train_dataset[rand_idx][0]
+                    # Convert the image to a tensor
+                    img = img.to(state.device)
+                    # Reshape the image
+                    img = img.reshape(1, state.nc, state.input_size, state.input_size)
+                    # Assign the image to the distill_data tensor while allowing gradients
+                    distill_data.data[idx] = img.detach().data
+                    # Remove the selected index from the dictionary
+                    idx_list.remove(rand_idx)
             #set distil data to have requi
             self.data.append(distill_data)
             self.params.append(distill_data)
@@ -83,19 +84,14 @@ class Trainer(object):
             broadcast_coalesced(self.params)
             logging.info("parameters broadcast done!")
 
-        # self.optimizer = optim.SGD(self.params, 
-        #                            lr=optim_lr, 
-        #                            momentum=0.9, 
-        #                            weight_decay=state.weight_decay, 
-        #                            nesterov=True)
-        
-        # self.optimizer = th_optim.MADGRAD(self.params,
-        #                                     lr=optim_lr,
-        #                                     momentum=0.9,
-        #                                     weight_decay=5e-4,
-        #                                     eps=1e-6,)
-
-        self.optimizer = th_optim.Ranger(self.params,
+        if state.optimizer == 'sgd':
+            self.optimizer = optim.SGD(self.params, 
+                                   lr=optim_lr, 
+                                   momentum=0.9, 
+                                   weight_decay=state.weight_decay, 
+                                   nesterov=True)
+        else:
+            self.optimizer = th_optim.Ranger(self.params,
                                         lr=optim_lr,
                                         alpha=0.5,
                                         k=6,
@@ -103,6 +99,13 @@ class Trainer(object):
                                         betas=(.95, 0.999),
                                         eps=1e-5,
                                         weight_decay=state.weight_decay,)
+        
+        
+        # self.optimizer = th_optim.MADGRAD(self.params,
+        #                                     lr=optim_lr,
+        #                                     momentum=0.9,
+        #                                     weight_decay=5e-4,
+        #                                     eps=1e-6,)
         
         # self.optimizer = th_optim.DiffGrad(self.params,
         #                                     lr= optim_lr,

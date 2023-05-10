@@ -206,6 +206,7 @@ class BaseOptions(object):
         action_registry = parser._registries['action']
         for name, action_cls in action_registry.items():
             action_registry[name] = get_unique_action_cls(action_cls)
+        parser.add_argument('--optimizer', type=str, default='sgd', choices=['sgd', 'ranger'], help='optimizer type')
         parser.add_argument('--batch_size', type=pos_int, default=5120,
                             help='input batch size for training (default: 1024)')
         parser.add_argument('--init_image', type=str, default='real', 

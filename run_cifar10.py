@@ -15,4 +15,5 @@
 
 from subprocess import call
 
-call(["python", "main_ift.py", "--mode", "distill_basic", "--dataset", "Cifar10", "--arch", "AlexCifarNet", "--distill_lr", "0.01", "--lr", "0.1", "--batch_size", "5120", "--test_batch_size", "1024", "--epochs", "1000",  "--distill_epochs", "3", "--evaluate_epochs", "20", "--weight_decay", "0", "--neumann_terms_cnt", "20",  "--log_interval", "100"])
+call(["python", "main_ift.py", "--mode", "distill_basic", "--dataset", "Cifar10", "--optimizer", "ranger", "--arch", "AlexCifarNet", "--init_image", "real", "--distill_lr", "0.01", "--lr", "0.1", "--batch_size", "5120", "--test_batch_size", "1024", "--epochs", "1000",  "--distill_epochs", "5", "--evaluate_epochs", "20", "--weight_decay", "0", "--neumann_terms_cnt", "20",  "--log_interval", "100"])
+# call(["python", "main_zen.py", "--mode", "distill_basic", "--dataset", "Cifar10", "--zen_archs", "AlexCifarNet,VGG16,ResNet18,ConvNet", "--init_image", "random", "--distill_lr", "0.01", "--lr", "1", "--batch_size", "5120", "--test_batch_size", "1024", "--epochs", "1000",  "--distill_epochs", "3", "--evaluate_epochs", "20", "--weight_decay", "1e-5", "--neumann_terms_cnt", "20",  "--log_interval", "100"])
