@@ -213,16 +213,19 @@ class Trainer(object):
                                 param.sub_(state.distill_lr * param.grad)
                                 param.grad.zero_()
 
-                    #Final Training Loss
-                    loss = 0
-                    cnt = len(self.data)
-                    for x in zip(self.data, self.labels):
-                        output = model(x[0])
-                        loss += task_loss(state, output, x[1])/cnt
+                    #Validation Loss
+                    # Loop over rdata, rlabel in batches of size 1000
+                    val_loss = 0
+                    for local_it in range(0, len(rdata), 1024):
+                        temp_rdata = rdata[local_it:local_it+1024]
+                        temp_rlabel = rlabel[local_it:local_it+1024]
+                        temp_rdata, temp_rlabel = temp_rdata.to(device, non_blocking=True), temp_rlabel.to(device, non_blocking=True)
+                        #Final Validation Loss
+                        val_loss += final_objective_loss(state, model(temp_rdata), temp_rlabel)*(len(temp_rdata)/len(rdata))
 
-                    if prev_loss < loss:
+                    if prev_loss < val_loss:
                         sel_model = model
-                        prev_loss = loss
+                        prev_loss = val_loss
                
                 #Final Training Loss
                 loss = 0
